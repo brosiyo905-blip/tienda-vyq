@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración | TIENDA VYQ</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .admin-container { max-width: 900px; margin: 40px auto; background: var(--blanco); padding: 30px; border-radius: 8px; border: 1px solid #e5dcc9; }
+        .admin-producto { border-bottom: 1px solid #e5dcc9; padding: 20px 0; display: grid; gap: 12px; }
+        .admin-producto label { font-size: 0.85rem; font-weight: bold; color: var(--texto); display: block; margin-bottom: 4px; }
+        .admin-producto input, .admin-producto select { width: 100%; padding: 8px; border: 1px solid #cfc5b2; border-radius: 4px; background: var(--marfil); }
+        .btn-guardar { background: var(--dorado); color: var(--negro); border: none; padding: 10px 20px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        .btn-guardar:hover { background: var(--dorado-claro); }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PANEL DE CONTROL - VYQ</h1>
+        <p>Gestión interna para el Administrador</p>
+    </header>
+
+    <main class="admin-container">
+        <h2>Inventario y Precios</h2>
+        <p style="margin-bottom: 20px; color: var(--texto-suave);">Modifica los valores de los productos. Los cambios se actualizarán inmediatamente en la tienda pública.</p>
+        
+        <div id="lista-admin-productos">
+            <!-- Los productos se cargarán dinámicamente o se gestionarán por ID -->
+        </div>
+        
+        <button type="button" class="btn-guardar" id="btn-guardar-todo">Guardar Cambios del Sistema</button>
+        <p id="mensaje-exito" style="margin-top: 10px; color: green; font-weight: bold; display: none;">¡Cambios guardados exitosamente!</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TIENDA VYQ. Módulo de Administración - Sistemas Informáticos.</p>
+    </footer>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
