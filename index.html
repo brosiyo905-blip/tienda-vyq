@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TIENDA VYQ: perfumería, ropa, joyas y accesorios.">
+    <title>TIENDA VYQ | Elegancia para ti</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <script src="js/app.js"></script>
+
+    <header>
+        <h1>TIENDA VYQ</h1>
+        <p>Elegancia, estilo y personalidad</p>
+    </header>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#perfumeria">Perfumería</a>
+        <a href="#ropa">Ropa</a>
+        <a href="#joyas">Joyas y accesorios</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <main>
+        
+<section id="herramientas-catalogo" class="herramientas-catalogo">
+    <h2>Encuentra tu producto</h2>
+
+    <label for="busqueda">Buscar por nombre</label>
+    <input
+        type="search"
+        id="busqueda"
+        placeholder="Ej.: Mítica, chompa, collares..."
+    >
+
+    <div class="filtros">
+        <div>
+            <label for="filtro-categoria">Categoría</label>
+            <select id="filtro-categoria">
+                <option value="todas">Todas las categorías</option>
+                <option value="perfumeria">Perfumería</option>
+                <option value="ropa">Ropa</option>
+                <option value="joyas">Joyas y accesorios</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="filtro-marca">Marca</label>
+            <select id="filtro-marca">
+                <option value="todas">Todas las marcas</option>
+                <option value="lbel">L'Bel</option>
+                <option value="esika">Ésika</option>
+                <option value="finart">Finart</option>
+                <option value="sin-marca">Sin marca especificada</option>
+            </select>
+        </div>
+    </div>
+
+    <p id="contador-productos" aria-live="polite">
+        Cargando catálogo...
+    </p>
+</section>
+
+        <section id="inicio">
+            <h2>Bienvenido a TIENDA VYQ</h2>
+            <p>Descubre productos que combinan elegancia,
+            calidad y estilo para cada ocasión.</p>
+        </section>
+
+            
+<section id="perfumeria" class="categoria">
+    <h2>Perfumería</h2>
+    <p class="descripcion-categoria">
+        Fragancias y cuidado personal para cada ocasión.
+    </p>
+
+    <div class="catalogo">
+        <article class="producto">
+            <div class="producto-imagen">🌸</div>
+            <div class="producto-info">
+                <span class="marca">L'Bel</span>
+                <h3>Mítica</h3>
+                <p>Perfume para dama. Descripción e imagen definitivas pendientes.</p>
+                <p class="precio">Precio: pendiente de configurar</p>
+                <p class="disponibilidad">Disponibilidad: por confirmar</p>
+                <button type="button" disabled>Próximamente</button>
+            </div>
+        </article>
+
+        <article class="producto">
+            <div class="producto-imagen">✨</div>
+            <div class="producto-info">
+                <span class="marca">L'Bel</span>
+                <h3>Mítica Elixir</h3>
+                <p>Fragancia. Presentación y detalles pendientes de confirmar.</p>
+                <p class="precio">Precio: pendiente de configurar</p>
+                <p class="disponibilidad">Disponibilidad: por confirmar</p>
+                <button type="button" disabled>Próximamente</button>
+            </div>
+        </article>
+
+        <article class="producto">
+            <div class="producto-imagen">🧴</div>
+            <div class="producto-info">
+                <span class="marca">Ésika</span>
+                <h3>Desodorante roll-on</h3>
+                <p>Producto de cuidado personal. Variante pendiente de definir.</p>
+                <p class="precio">Precio: pendiente de configurar</p>
+                <p class="disponibilidad">Disponibilidad: por confirmar</p>
+                <button type="button" disabled>Próximamente</button>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section id="ropa" class="categoria">
+    <h2>Ropa</h2>
+    <p class="descripcion-categoria">
+        Prendas para dama y varón, con estilos para diferentes ocasiones.
+    </p>
+
+    <div class="catalogo">
+        <article class="producto">
+            <div class="producto-imagen">🧥</div>
+            <div class="producto-info">
+                <h3>Chompas</h3>
+                <p>Modelos para dama y varón. Cuello redondo, cuello V y cardigan.</p>
+                <p class="precio">Precio: pendiente de configurar</p>
+                <p class="disponibilidad">Disponibilidad: por confirmar</p>
+                <button type="button" disabled>Próximamente</button>
+            </div>
+        </article>
+
+        <article class="producto">
+            <div class="producto-imagen">👕</div>
+            <div class="producto-info">
+                <h3>Sudaderas</h3>
+                <p>Modelos, tallas y colores pendientes de definir.</p>
+                <p class="precio">Precio: pendiente de configurar</p>
+                <p class="disponibilidad">Disponibilidad: por confirmar</p>
+                <button type="button" disabled>Próximamente</button>
+            </div>
+        </article>
+
+        <article class="producto">
+            <div class="producto-imagen">🧣</div>
+            <div class="producto-info">
+                <h3>Polar</h3>
+                <p>Chaquetas y chalecos de polar para dama y varón.</p>
+                <p class="precio">Precio: pendiente de configurar</p>
+                <p class="disponibilidad">Disponibilidad: por confirmar</p>
+                <button type="button" disabled>Próximamente</button>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section id="joyas" class="categoria">
+    <h2>Joyas y accesorios</h2>
+    <p class="descripcion-categoria">
+        Detalles que complementan tu estilo.
+    </p>
+
+    <div class="catalogo">
+        <article class="producto">
+            <div class="producto-imagen">💎</div>
+            <div class="producto-info">
+                <span class="marca">Finart</span>
+                <h3>Joyas Finart</h3>
+                <p>Modelos y materiales pendientes de confirmar.</p>
+                <p class="precio">Precio: pendiente de configurar</p>
+                <p class="disponibilidad">Disponibilidad: por confirmar</p>
+                <button type="button" disabled>Próximamente</button>
+            </div>
+        </article>
+
+        <article class="producto">
+            <div class="producto-imagen">📿</div>
+            <div class="producto-info">
+                <h3>Collares y chokers</h3>
+                <p>Diseños y materiales pendientes de definir.</p>
+                <p class="precio">Precio: pendiente de configurar</p>
+                <p class="disponibilidad">Disponibilidad: por confirmar</p>
+                <button type="button" disabled>Próximamente</button>
+            </div>
+        </article>
+
+        <article class="producto">
+            <div class="producto-imagen">✨</div>
+            <div class="producto-info">
+                <h3>Aretes</h3>
+                <p>Modelos y materiales pendientes de confirmar.</p>
+                <p class="precio">Precio: pendiente de configurar</p>
+                <p class="disponibilidad">Disponibilidad: por confirmar</p>
+                <button type="button" disabled>Próximamente</button>
+            </div>
+        </article>
+    </div>
+</section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TIENDA VYQ. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html> 
