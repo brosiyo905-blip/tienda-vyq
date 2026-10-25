@@ -16,71 +16,49 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 if (pPrecio) pPrecio.textContent = encontrado.precio;
                 if (pDisponibilidad) pDisponibilidad.textContent = "Disponibilidad: " + encontrado.stock;
-                
-                if (encontrado.descuento && encontrado.descuento.trim() !== "") {
-                    let etiquetaDescuento = articulo.querySelector(".etiqueta-descuento");
-                    if (!etiquetaDescuento) {
-                        etiquetaDescuento = document.createElement("span");
-                        etiquetaDescuento.className = "etiqueta-descuento";
-                        etiquetaDescuento.style.cssText = "background: var(--dorado, #d4af37); color: #000; padding: 2px 8px; font-size: 0.75rem; font-weight: bold; border-radius: 3px; display: inline-block; margin-bottom: 5px;";
-                        articulo.querySelector(".producto-info").prepend(etiquetaDescuento);
-                    }
-                    etiquetaDescuento.textContent = encontrado.descuento;
-                }
             }
         });
     }
 
-    // 2. BÚSQUEDA Y FILTROS INTELIGENTES
+    // 2. BÚSQUEDA Y FILTROS EN TIEMPO REAL
     const campoBusqueda = document.getElementById("busqueda");
     const filtroCategoria = document.getElementById("filtro-categoria");
     const filtroMarca = document.getElementById("filtro-marca");
     const contadorProductos = document.getElementById("contador-productos");
-    const productos = Array.from(document.querySelectorAll(".producto"));
+    const productos = document.querySelectorAll(".producto");
 
-    function normalizarTexto(texto) {
-        return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-    }
-
-    function filtrarProductos() {
-        const busqueda = normalizarTexto(campoBusqueda ? campoBusqueda.value : "");
-        const categoriaSeleccionada = filtroCategoria ? filtroCategoria.value : "todas";
+    function filtrarCatalogo() {
+        const textoBusqueda = campoBusqueda ? campoBusqueda.value.toLowerCase().trim() : "";
+        const catSeleccionada = filtroCategoria ? filtroCategoria.value : "todas";
         const marcaSeleccionada = filtroMarca ? filtroMarca.value : "todas";
 
         let visibles = 0;
 
         productos.forEach((producto) => {
-            const textoProducto = normalizarTexto(producto.textContent);
-            const categoria = producto.dataset.categoria;
-            const marca = producto.dataset.marca;
+            const contenido = producto.textContent.toLowerCase();
+            const categoria = producto.getAttribute("data-categoria");
+            const marca = producto.getAttribute("data-marca");
 
-            const coincideBusqueda = textoProducto.includes(busqueda);
-            const coincideCategoria = categoriaSeleccionada === "todas" || categoria === categoriaSeleccionada;
+            const coincideTexto = contenido.includes(textoBusqueda);
+            const coincideCat = catSeleccionada === "todas" || categoria === catSeleccionada;
             const coincideMarca = marcaSeleccionada === "todas" || marca === marcaSeleccionada;
 
-            const mostrar = coincideBusqueda && coincideCategoria && coincideMarca;
-            
-            producto.style.display = mostrar ? "block" : "none";
-
-            if (mostrar) visibles++;
+            if (coincideTexto && coincideCat && coincideMarca) {
+                producto.style.display = "block";
+                visibles++;
+            } else {
+                producto.style.display = "none";
+            }
         });
 
         if (contadorProductos) {
-            if (visibles === 0) {
-                contadorProductos.textContent = "No se encontraron productos con esos filtros.";
-            } else if (visibles === 1) {
-                contadorProductos.textContent = "Se muestra 1 producto.";
-            } else {
-                contadorProductos.textContent = Se muestran ${visibles} productos.;
-            }
+            contadorProductos.textContent = Se muestran ${visibles} productos.;
         }
     }
 
-    if (campoBusqueda) campoBusqueda.addEventListener("input", filtrarProductos);
-    if (filtroCategoria) filtroCategoria.addEventListener("change", filtrarProductos);
-    if (filtroMarca) filtroMarca.addEventListener("change", filtrarProductos);
-
-    filtrarProductos();
+    if (campoBusqueda) campoBusqueda.addEventListener("input", filtrarCatalogo);
+    if (filtroCategoria) filtroCategoria.addEventListener("change", filtrarCatalogo);
+    if (filtroMarca) filtroMarca.addEventListener("change", filtrarCatalogo);
 
     // 3. CARRITO DE COMPRAS INTERACTIVO
     let carrito = [];
@@ -90,17 +68,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     botonesComprar.forEach((boton) => {
         boton.addEventListener("click", (e) => {
-            const productoCard = e.target.closest(".producto");
-            const nombreProd = productoCard.querySelector("h3").textContent;
-            const precioProd = productoCard.querySelector(".precio").textContent;
+            const tarjeta = e.target.closest(".producto");
+            const nombre = tarjeta.querySelector("h3").textContent;
+            const precio = tarjeta.querySelector(".precio").textContent;
 
-            carrito.push({ nombre: nombreProd, precio: precioProd });
+            carrito.push({ nombre, precio });
             
             if (contadorCarrito) {
                 contadorCarrito.textContent = carrito.length;
             }
 
-            alert(¡"${nombreProd}" se añadió al carrito con éxito!);
+            alert(¡"${nombre}" fue agregado al carrito con éxito!);
         });
     });
 
@@ -109,13 +87,110 @@ document.addEventListener("DOMContentLoaded", () => {
             if (carrito.length === 0) {
                 alert("Tu carrito de compras está vacío.");
             } else {
-                let detalle = "--- RESUMEN DE TU CARRITO ---\n\n";
-                let totalBs = 0;
-                carrito.forEach((item, index) => {
-                    detalle += ${index + 1}. ${item.nombre} - ${item.precio}\n;
+                let mensaje = "--- TUS COMPRAS EN TIENDA VYQ ---\n\n";
+                carrito.forEach((item, i) => {
+                    mensaje += ${i + 1}. ${item.nombre} - ${item.precio}\n;
                 });
-                detalle += \nTotal de artículos: ${carrito.length};
-                alert(detalle);
+                mensaje += \nTotal de productos: ${carrito.length};
+                alert(mensaje);
+            }
+        });
+    }
+});"use strict";
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. SINCRONIZACIÓN CON EL PANEL DE ADMINISTRADOR
+    const datosGuardados = JSON.parse(localStorage.getItem("vyq_productos"));
+    
+    if (datosGuardados) {
+        const articulosWeb = document.querySelectorAll(".producto");
+        articulosWeb.forEach((articulo) => {
+            const idProd = articulo.getAttribute("data-id");
+            const encontrado = datosGuardados.find(p => p.id === idProd);
+            
+            if (encontrado) {
+                const pPrecio = articulo.querySelector(".precio");
+                const pDisponibilidad = articulo.querySelector(".disponibilidad");
+                
+                if (pPrecio) pPrecio.textContent = encontrado.precio;
+                if (pDisponibilidad) pDisponibilidad.textContent = "Disponibilidad: " + encontrado.stock;
+            }
+        });
+    }
+
+    // 2. BÚSQUEDA Y FILTROS EN TIEMPO REAL
+    const campoBusqueda = document.getElementById("busqueda");
+    const filtroCategoria = document.getElementById("filtro-categoria");
+    const filtroMarca = document.getElementById("filtro-marca");
+    const contadorProductos = document.getElementById("contador-productos");
+    const productos = document.querySelectorAll(".producto");
+
+    function filtrarCatalogo() {
+        const textoBusqueda = campoBusqueda ? campoBusqueda.value.toLowerCase().trim() : "";
+        const catSeleccionada = filtroCategoria ? filtroCategoria.value : "todas";
+        const marcaSeleccionada = filtroMarca ? filtroMarca.value : "todas";
+
+        let visibles = 0;
+
+        productos.forEach((producto) => {
+            const contenido = producto.textContent.toLowerCase();
+            const categoria = producto.getAttribute("data-categoria");
+            const marca = producto.getAttribute("data-marca");
+
+            const coincideTexto = contenido.includes(textoBusqueda);
+            const coincideCat = catSeleccionada === "todas" || categoria === catSeleccionada;
+            const coincideMarca = marcaSeleccionada === "todas" || marca === marcaSeleccionada;
+
+            if (coincideTexto && coincideCat && coincideMarca) {
+                producto.style.display = "block";
+                visibles++;
+            } else {
+                producto.style.display = "none";
+            }
+        });
+
+        if (contadorProductos) {
+            contadorProductos.textContent = Se muestran ${visibles} productos.;
+        }
+    }
+
+    if (campoBusqueda) campoBusqueda.addEventListener("input", filtrarCatalogo);
+    if (filtroCategoria) filtroCategoria.addEventListener("change", filtrarCatalogo);
+    if (filtroMarca) filtroMarca.addEventListener("change", filtrarCatalogo);
+
+    // 3. CARRITO DE COMPRAS INTERACTIVO
+    let carrito = [];
+    const botonesComprar = document.querySelectorAll(".btn-comprar");
+    const contadorCarrito = document.getElementById("contador-carrito");
+    const btnVerCarrito = document.getElementById("btn-ver-carrito");
+
+    botonesComprar.forEach((boton) => {
+        boton.addEventListener("click", (e) => {
+            const tarjeta = e.target.closest(".producto");
+            const nombre = tarjeta.querySelector("h3").textContent;
+            const precio = tarjeta.querySelector(".precio").textContent;
+
+            carrito.push({ nombre, precio });
+            
+            if (contadorCarrito) {
+                contadorCarrito.textContent = carrito.length;
+            }
+
+            alert(¡"${nombre}" fue agregado al carrito con éxito!);
+        });
+    });
+
+    if (btnVerCarrito) {
+        btnVerCarrito.addEventListener("click", () => {
+            if (carrito.length === 0) {
+                alert("Tu carrito de compras está vacío.");
+            } else {
+                let mensaje = "--- TUS COMPRAS EN TIENDA VYQ ---\n\n";
+                carrito.forEach((item, i) => {
+                    mensaje += ${i + 1}. ${item.nombre} - ${item.precio}\n;
+                });
+                mensaje += \nTotal de productos: ${carrito.length};
+                alert(mensaje);
             }
         });
     }
