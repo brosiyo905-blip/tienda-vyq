@@ -6,6 +6,11 @@
     <meta name="description" content="TIENDA VYQ: perfumería, ropa, joyas y accesorios elegantes.">
     <title>TIENDA VYQ | Elegancia y Estilo</title>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Estilos rápidos para el carrito flotante */
+        .carrito-flotante { position: fixed; bottom: 20px; right: 20px; background: var(--dorado, #d4af37); color: #000; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; cursor: pointer; border: none; }
+        .carrito-flotante:hover { background: #e6c55c; }
+    </style>
 </head>
 <body>
     <header>
@@ -21,22 +26,22 @@
         <a href="#contacto">Contacto</a>
     </nav>
 
+    <!-- BOTÓN DE CARRITO FLOTANTE -->
+    <button type="button" id="btn-ver-carrito" class="carrito-flotante">🛒 Carrito (<span id="contador-carrito">0</span>)</button>
+
     <main>
         <!-- HERRAMIENTAS DE BÚSQUEDA Y FILTROS -->
-        <section id="herramientas-catalogo" class="herramientas-catalogo">
+        <section id="herramientas-catalogo" class="herramientas-catalogo" style="background: #fff; padding: 20px; margin: 20px auto; max-width: 800px; border-radius: 8px; border: 1px solid #e5dcc9;">
             <h2>Encuentra tu producto</h2>
+            <div style="margin-bottom: 15px;">
+                <label for="busqueda" style="display: block; font-weight: bold; margin-bottom: 5px;">Buscar por nombre</label>
+                <input type="search" id="busqueda" placeholder="Ej.: Mítica, chompa, collares..." style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            </div>
 
-            <label for="busqueda">Buscar por nombre</label>
-            <input
-                type="search"
-                id="busqueda"
-                placeholder="Ej.: Mítica, chompa, collares..."
-            >
-
-            <div class="filtros">
+            <div class="filtros" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <div>
-                    <label for="filtro-categoria">Categoría</label>
-                    <select id="filtro-categoria">
+                    <label for="filtro-categoria" style="display: block; font-weight: bold; margin-bottom: 5px;">Categoría</label>
+                    <select id="filtro-categoria" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
                         <option value="todas">Todas las categorías</option>
                         <option value="perfumeria">Perfumería</option>
                         <option value="ropa">Ropa</option>
@@ -45,20 +50,18 @@
                 </div>
 
                 <div>
-                    <label for="filtro-marca">Marca</label>
-                    <select id="filtro-marca">
+                    <label for="filtro-marca" style="display: block; font-weight: bold; margin-bottom: 5px;">Marca</label>
+                    <select id="filtro-marca" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
                         <option value="todas">Todas las marcas</option>
                         <option value="lbel">L'Bel</option>
                         <option value="esika">Ésika</option>
-                        <option value="yanbal">Yanbal</option>
-                        <option value="sisone">Sisone</option>
                         <option value="finart">Finart</option>
                         <option value="sin-marca">Sin marca especificada</option>
                     </select>
                 </div>
             </div>
 
-            <p id="contador-productos" aria-live="polite">
+            <p id="contador-productos" style="margin-top: 15px; font-weight: bold; color: #555;" aria-live="polite">
                 Cargando catálogo...
             </p>
         </section>
