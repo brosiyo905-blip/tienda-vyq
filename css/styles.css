@@ -1,0 +1,427 @@
+/* =====================================
+   TIENDA VYQ - ESTILOS PRINCIPALES
+   Colores: negro, dorado y marfil
+===================================== */
+
+:root {
+    --negro: #171512;
+    --negro-suave: #24211c;
+    --dorado: #c5a253;
+    --dorado-claro: #e4cd91;
+    --marfil: #f8f5ed;
+    --blanco: #ffffff;
+    --texto: #34312b;
+    --texto-suave: #777168;
+}
+
+/* Configuración general */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 20px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--marfil);
+    color: var(--texto);
+    line-height: 1.7;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Encabezado */
+
+header {
+    background-color: var(--negro);
+    color: var(--marfil);
+    text-align: center;
+    padding: 35px 20px;
+    border-bottom: 3px solid var(--dorado);
+}
+
+header h1 {
+    color: var(--dorado-claro);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    letter-spacing: 5px;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #ded8ca;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}
+
+/* Navegación */
+
+nav {
+    background-color: var(--negro-suave);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px 16px;
+}
+
+nav a {
+    color: var(--marfil);
+    padding: 9px 15px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    transition: background-color 0.25s, color 0.25s;
+}
+
+nav a:hover,
+nav a:focus-visible {
+    background-color: var(--dorado);
+    color: var(--negro);
+}
+
+/* Contenido principal */
+
+main {
+    width: min(1100px, 92%);
+    margin: 35px auto;
+}
+
+section {
+    background-color: var(--blanco);
+    padding: 38px 30px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    border: 1px solid #e9e1d1;
+    box-shadow: 0 4px 16px rgba(30, 25, 15, 0.05);
+    scroll-margin-top: 20px;
+    animation: aparecer 0.6s ease both;
+}
+
+section h2 {
+    color: var(--negro);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 12px;
+}
+
+section h2::after {
+    content: "";
+    display: block;
+    width: 55px;
+    height: 3px;
+    background-color: var(--dorado);
+    margin-top: 10px;
+}
+
+section p {
+    color: var(--texto-suave);
+    max-width: 700px;
+}
+
+/* Portada */
+
+#inicio {
+    background: linear-gradient(135deg, #24211c, #100f0d);
+    color: var(--marfil);
+    padding: 65px 35px;
+    text-align: center;
+}
+
+#inicio h2 {
+    color: var(--dorado-claro);
+}
+
+#inicio h2::after {
+    margin: 12px auto;
+}
+
+#inicio p {
+    color: #e3ded3;
+    margin: 0 auto;
+}
+
+/* Categorías */
+
+#perfumeria,
+#ropa,
+#joyas {
+    border-left: 4px solid var(--dorado);
+}
+
+/* Contacto */
+
+#contacto {
+    text-align: center;
+    background-color: #eee7d8;
+}
+
+#contacto h2::after {
+    margin: 10px auto;
+}
+
+/* Pie de página */
+
+footer {
+    background-color: var(--negro);
+    color: #ded8ca;
+    text-align: center;
+    padding: 24px 16px;
+    border-top: 3px solid var(--dorado);
+    font-size: 0.9rem;
+}
+
+/* Animación suave */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Accesibilidad: reducir animaciones si se solicita */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Adaptación a celulares */
+
+@media (max-width: 600px) {
+    header {
+        padding: 28px 14px;
+    }
+
+    header h1 {
+        letter-spacing: 3px;
+    }
+
+    nav {
+        gap: 4px;
+        padding: 10px;
+    }
+
+    nav a {
+        padding: 8px 10px;
+        font-size: 0.88rem;
+    }
+
+    main {
+        width: 94%;
+        margin: 22px auto;
+    }
+
+    section {
+        padding: 26px 20px;
+        margin-bottom: 18px;
+    }
+
+    #inicio {
+        padding: 42px 20px;
+    }
+}
+
+/* =====================================
+   CATÁLOGO DE PRODUCTOS
+===================================== */
+
+.categoria {
+    padding: 35px 28px;
+}
+
+.descripcion-categoria {
+    margin-bottom: 24px;
+}
+
+.catalogo {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.producto {
+    min-width: 0;
+    overflow: hidden;
+    background-color: var(--marfil);
+    border: 1px solid #e5dcc9;
+    border-radius: 10px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(23, 21, 18, 0.12);
+}
+
+.producto-imagen {
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee7d8;
+    font-size: 4rem;
+}
+
+.producto-info {
+    padding: 20px;
+}
+
+.producto-info .marca {
+    color: #8b6b27;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.producto-info h3 {
+    margin: 6px 0 10px;
+    color: var(--negro);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.2rem;
+}
+
+.producto-info p {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+}
+
+.producto-info .precio {
+    color: var(--negro);
+    font-weight: bold;
+}
+
+.producto-info .disponibilidad {
+    color: var(--texto-suave);
+    font-size: 0.85rem;
+}
+
+.producto-info button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 11px;
+    border: 1px solid var(--dorado);
+    border-radius: 5px;
+    background-color: #e8dfcc;
+    color: #51452d;
+    font-weight: bold;
+    cursor: not-allowed;
+    opacity: 0.85;
+}
+
+/* Catálogo adaptable a pantallas medianas */
+
+@media (max-width: 850px) {
+    .catalogo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Catálogo adaptable a celulares */
+
+@media (max-width: 560px) {
+    .catalogo {
+        grid-template-columns: 1fr;
+    }
+
+    .categoria {
+        padding: 25px 16px;
+    }
+
+    .producto-imagen {
+        min-height: 125px;
+    }
+}
+
+/* =====================================
+   BÚSQUEDA Y FILTROS
+===================================== */
+
+.herramientas-catalogo {
+    margin-bottom: 30px;
+    padding: 28px;
+    background-color: var(--blanco);
+    border: 1px solid #e5dcc9;
+    border-top: 3px solid var(--dorado);
+    border-radius: 8px;
+}
+
+.herramientas-catalogo h2 {
+    margin-bottom: 18px;
+    color: var(--negro);
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.herramientas-catalogo label {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--texto);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.herramientas-catalogo input,
+.herramientas-catalogo select {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #cfc5b2;
+    border-radius: 5px;
+    background-color: var(--marfil);
+    color: var(--texto);
+    font: inherit;
+}
+
+.herramientas-catalogo input:focus,
+.herramientas-catalogo select:focus {
+    outline: 2px solid var(--dorado);
+    outline-offset: 2px;
+}
+
+.filtros {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+}
+
+#contador-productos {
+    margin-top: 18px;
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 560px) {
+    .herramientas-catalogo {
+        padding: 20px 16px;
+    }
+
+    .filtros {
+        grid-template-columns: 1fr;
+    }
