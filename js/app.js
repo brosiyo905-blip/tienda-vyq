@@ -1,21 +1,24 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Cargar datos del Administrador si existen
+    // 1. SINCRONIZACIÓN CON EL PANEL DE ADMINISTRADOR
     const datosGuardados = JSON.parse(localStorage.getItem("vyq_productos"));
     
     if (datosGuardados) {
         const articulosWeb = document.querySelectorAll(".producto");
-        articulosWeb.forEach((articulo, idx) => {
-            if (datosGuardados[idx]) {
+        articulosWeb.forEach((articulo) => {
+            const idProd = articulo.getAttribute("data-id");
+            const encontrado = datosGuardados.find(p => p.id === idProd);
+            
+            if (encontrado) {
                 const pPrecio = articulo.querySelector(".precio");
                 const pDisponibilidad = articulo.querySelector(".disponibilidad");
                 
-                if (pPrecio) pPrecio.textContent = datosGuardados[idx].precio;
-                if (pDisponibilidad) pDisponibilidad.textContent = "Disponibilidad: " + datosGuardados[idx].stock;
+                if (pPrecio) pPrecio.textContent = encontrado.precio;
+                if (pDisponibilidad) pDisponibilidad.textContent = "Disponibilidad: " + encontrado.stock;
                 
-                // Si hay descuento, añadimos una etiqueta visual elegante
-                if (datosGuardados[idx].descuento && datosGuardados[idx].descuento.trim() !== "") {
+                // Manejo de descuentos o avisos especiales
+                if (encontrado.descuento && encontrado.descuento.trim() !== "") {
                     let etiquetaDescuento = articulo.querySelector(".etiqueta-descuento");
                     if (!etiquetaDescuento) {
                         etiquetaDescuento = document.createElement("span");
@@ -23,15 +26,13 @@ document.addEventListener("DOMContentLoaded", () => {
                         etiquetaDescuento.style.cssText = "background: var(--dorado); color: var(--negro); padding: 2px 8px; font-size: 0.75rem; font-weight: bold; border-radius: 3px; display: inline-block; margin-bottom: 5px;";
                         articulo.querySelector(".producto-info").prepend(etiquetaDescuento);
                     }
-                    etiquetaDescuento.textContent = datosGuardados[idx].descuento;
+                    etiquetaDescuento.textContent = encontrado.descuento;
                 }
             }
         });
     }
 
-    // =====================================
-    // BÚSQUEDA Y FILTROS
-    // =====================================
+    // 2. BÚSQUEDA Y FILTROS INTELIGENTES
     const campoBusqueda = document.getElementById("busqueda");
     const filtroCategoria = document.getElementById("filtro-categoria");
     const filtroMarca = document.getElementById("filtro-marca");
@@ -59,7 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const coincideMarca = marcaSeleccionada === "todas" || marca === marcaSeleccionada;
 
             const mostrar = coincideBusqueda && coincideCategoria && coincideMarca;
-            producto.hidden = !mostrar;
+            
+            // Ocultar o mostrar dinámicamente
+            producto.style.display = mostrar ? "block" : "none";
 
             if (mostrar) visibles++;
         });
@@ -80,4 +83,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (filtroMarca) filtroMarca.addEventListener("change", filtrarProductos);
 
     filtrarProductos();
+
+    // 3. CARRITO DE COMPRAS BÁSICO Y FUNCIONAL
+    let carrito = [];
+    const botonesComprar = document.querySelectorAll(".btn-comprar");
+
+    botonesComprar.forEach((boton) => {
+        boton.addEventListener("click", (e) => {
+            const productoCard = e.target.closest(".producto");
+            const nombreProd = productoCard.querySelector("h3").textContent;
+            const precioProd = productoCard.querySelector(".precio").textContent;
+
+            carrito.push({ nombre: nombreProd, precio: precioProd });
+            alert(¡"${nombreProd}" fue agregado al carrito exitosamente!\nProductos en el carrito: ${carrito.length});
+        });
+    });
 });
