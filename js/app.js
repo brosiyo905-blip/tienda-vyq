@@ -17,13 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (pPrecio) pPrecio.textContent = encontrado.precio;
                 if (pDisponibilidad) pDisponibilidad.textContent = "Disponibilidad: " + encontrado.stock;
                 
-                // Manejo de descuentos o avisos especiales
                 if (encontrado.descuento && encontrado.descuento.trim() !== "") {
                     let etiquetaDescuento = articulo.querySelector(".etiqueta-descuento");
                     if (!etiquetaDescuento) {
                         etiquetaDescuento = document.createElement("span");
                         etiquetaDescuento.className = "etiqueta-descuento";
-                        etiquetaDescuento.style.cssText = "background: var(--dorado); color: var(--negro); padding: 2px 8px; font-size: 0.75rem; font-weight: bold; border-radius: 3px; display: inline-block; margin-bottom: 5px;";
+                        etiquetaDescuento.style.cssText = "background: var(--dorado, #d4af37); color: #000; padding: 2px 8px; font-size: 0.75rem; font-weight: bold; border-radius: 3px; display: inline-block; margin-bottom: 5px;";
                         articulo.querySelector(".producto-info").prepend(etiquetaDescuento);
                     }
                     etiquetaDescuento.textContent = encontrado.descuento;
@@ -61,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const mostrar = coincideBusqueda && coincideCategoria && coincideMarca;
             
-            // Ocultar o mostrar dinámicamente
             producto.style.display = mostrar ? "block" : "none";
 
             if (mostrar) visibles++;
@@ -84,9 +82,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     filtrarProductos();
 
-    // 3. CARRITO DE COMPRAS BÁSICO Y FUNCIONAL
+    // 3. CARRITO DE COMPRAS INTERACTIVO
     let carrito = [];
     const botonesComprar = document.querySelectorAll(".btn-comprar");
+    const contadorCarrito = document.getElementById("contador-carrito");
+    const btnVerCarrito = document.getElementById("btn-ver-carrito");
 
     botonesComprar.forEach((boton) => {
         boton.addEventListener("click", (e) => {
@@ -95,7 +95,28 @@ document.addEventListener("DOMContentLoaded", () => {
             const precioProd = productoCard.querySelector(".precio").textContent;
 
             carrito.push({ nombre: nombreProd, precio: precioProd });
-            alert(¡"${nombreProd}" fue agregado al carrito exitosamente!\nProductos en el carrito: ${carrito.length});
+            
+            if (contadorCarrito) {
+                contadorCarrito.textContent = carrito.length;
+            }
+
+            alert(¡"${nombreProd}" se añadió al carrito con éxito!);
         });
     });
+
+    if (btnVerCarrito) {
+        btnVerCarrito.addEventListener("click", () => {
+            if (carrito.length === 0) {
+                alert("Tu carrito de compras está vacío.");
+            } else {
+                let detalle = "--- RESUMEN DE TU CARRITO ---\n\n";
+                let totalBs = 0;
+                carrito.forEach((item, index) => {
+                    detalle += ${index + 1}. ${item.nombre} - ${item.precio}\n;
+                });
+                detalle += \nTotal de artículos: ${carrito.length};
+                alert(detalle);
+            }
+        });
+    }
 });
