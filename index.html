@@ -6,9 +6,43 @@
     <title>TIENDA VYQ | Elegancia y Estilo</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        .carrito-flotante { position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: #000; padding: 12px 20px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 1000; cursor: pointer; border: none; }
+        .carrito-flotante { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            background: #d4af37; 
+            color: #000; 
+            padding: 12px 24px; 
+            border-radius: 30px; 
+            font-weight: bold; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+            z-index: 10000; 
+            cursor: pointer; 
+            border: 2px solid #000; 
+            font-size: 16px;
+        }
         .carrito-flotante:hover { background: #e6c55c; }
-        .producto-imagen img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; }
+        
+        .producto-imagen {
+            width: 100%;
+            height: 180px;
+            background: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .producto-imagen img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .img-fallback {
+            font-size: 48px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -25,22 +59,22 @@
         <a href="#contacto">Contacto</a>
     </nav>
 
-    <!-- BOTÓN DE CARRITO FLOTANTE -->
+    <!-- BOTÓN DE CARRITO -->
     <button type="button" id="btn-ver-carrito" class="carrito-flotante">🛒 Carrito (<span id="contador-carrito">0</span>)</button>
 
     <main>
-        <!-- HERRAMIENTAS DE BÚSQUEDA Y FILTROS -->
+        <!-- BUSCADOR Y FILTROS -->
         <section id="herramientas-catalogo" style="background: #fff; padding: 20px; margin: 20px auto; max-width: 800px; border-radius: 8px; border: 1px solid #e5dcc9;">
-            <h2>Encuentra tu producto</h2>
+            <h2 style="margin-top: 0;">Encuentra tu producto</h2>
             <div style="margin-bottom: 15px;">
                 <label for="busqueda" style="display: block; font-weight: bold; margin-bottom: 5px;">Buscar por nombre o marca</label>
-                <input type="search" id="busqueda" placeholder="Ej.: Expression, Nike, Nitro, Tommy..." style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                <input type="search" id="busqueda" placeholder="Ej.: Expression, Nike, Nitro, Tommy..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <div>
                     <label for="filtro-categoria" style="display: block; font-weight: bold; margin-bottom: 5px;">Categoría</label>
-                    <select id="filtro-categoria" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <select id="filtro-categoria" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
                         <option value="todas">Todas las categorías</option>
                         <option value="perfumeria">Perfumería</option>
                         <option value="ropa">Ropa</option>
@@ -50,7 +84,7 @@
 
                 <div>
                     <label for="filtro-marca" style="display: block; font-weight: bold; margin-bottom: 5px;">Marca / Proveedor</label>
-                    <select id="filtro-marca" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                    <select id="filtro-marca" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
                         <option value="todas">Todas las marcas</option>
                         <option value="esika">Ésika</option>
                         <option value="cyzone">Cyzone</option>
@@ -61,7 +95,7 @@
                     </select>
                 </div>
             </div>
-            <p id="contador-productos" style="margin-top: 15px; font-weight: bold; color: #555;">Cargando...</p>
+            <p id="contador-productos" style="margin-top: 15px; font-weight: bold; color: #333;">Cargando catálogo...</p>
         </section>
 
         <section id="inicio">
@@ -69,16 +103,19 @@
             <p>Descubre colecciones exclusivas para cada ocasión especial.</p>
         </section>
 
-        <!-- PERFUMERÍA -->
+        <!-- SECCIÓN PERFUMERÍA -->
         <section id="perfumeria" class="categoria">
             <h2>Perfumería</h2>
             <div class="catalogo">
                 <article class="producto" data-categoria="perfumeria" data-marca="esika">
-                    <div class="producto-imagen"><img src="img/expression-sens.jpg" alt="Expression Sens"></div>
+                    <div class="producto-imagen">
+                        <img src="img/expression-sens.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🌸</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">Ésika</span>
                         <h3>Expression Sens</h3>
-                        <p>Aroma Chipre floral de 50 ml[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span).</p>
+                        <p>Aroma Chipre floral de 50 ml.</p>
                         <p class="precio">Precio: Bs. 145</p>
                         <p class="disponibilidad">Disponibilidad: Disponible</p>
                         <button type="button" class="btn-comprar">Añadir al carrito</button>
@@ -86,11 +123,14 @@
                 </article>
 
                 <article class="producto" data-categoria="perfumeria" data-marca="esika">
-                    <div class="producto-imagen"><img src="img/expression-magic.jpg" alt="Expression Magic"></div>
+                    <div class="producto-imagen">
+                        <img src="img/expression-magic.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">✨</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">Ésika</span>
                         <h3>Expression Magic</h3>
-                        <p>Aroma floral frutal de 50 ml[span_2](start_span)[span_2](end_span).</p>
+                        <p>Aroma floral frutal de 50 ml.</p>
                         <p class="precio">Precio: Bs. 145</p>
                         <p class="disponibilidad">Disponibilidad: Disponible</p>
                         <button type="button" class="btn-comprar">Añadir al carrito</button>
@@ -98,11 +138,14 @@
                 </article>
 
                 <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
-                    <div class="producto-imagen"><img src="img/sweet-black.jpg" alt="Sweet Black Intense"></div>
+                    <div class="producto-imagen">
+                        <img src="img/sweet-black.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🖤</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">Cyzone</span>
                         <h3>Sweet Black Intense</h3>
-                        <p>Aroma dulce de 50 ml[span_3](start_span)[span_3](end_span)[span_4](start_span)[span_4](end_span).</p>
+                        <p>Aroma dulce de 50 ml.</p>
                         <p class="precio">Precio: Bs. 115</p>
                         <p class="disponibilidad">Disponibilidad: Disponible</p>
                         <button type="button" class="btn-comprar">Añadir al carrito</button>
@@ -110,11 +153,14 @@
                 </article>
 
                 <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
-                    <div class="producto-imagen"><img src="img/nitro.jpg" alt="Nitro"></div>
+                    <div class="producto-imagen">
+                        <img src="img/nitro.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">⚡</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">Cyzone</span>
                         <h3>Nitro</h3>
-                        <p>Aroma herbal aromática de 100 ml[span_5](start_span)[span_5](end_span)[span_6](start_span)[span_6](end_span).</p>
+                        <p>Aroma herbal aromática de 100 ml.</p>
                         <p class="precio">Precio: Bs. 115</p>
                         <p class="disponibilidad">Disponibilidad: Disponible</p>
                         <button type="button" class="btn-comprar">Añadir al carrito</button>
@@ -122,11 +168,14 @@
                 </article>
 
                 <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
-                    <div class="producto-imagen"><img src="img/nitro-air.jpg" alt="Nitro Air"></div>
+                    <div class="producto-imagen">
+                        <img src="img/nitro-air.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🌬️</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">Cyzone</span>
                         <h3>Nitro Air</h3>
-                        <p>Aroma herbal con notas de lavanda, 100 ml[span_7](start_span)[span_7](end_span)[span_8](start_span)[span_8](end_span).</p>
+                        <p>Aroma herbal con notas de lavanda, 100 ml.</p>
                         <p class="precio">Precio: Bs. 115</p>
                         <p class="disponibilidad">Disponibilidad: Disponible</p>
                         <button type="button" class="btn-comprar">Añadir al carrito</button>
@@ -134,11 +183,14 @@
                 </article>
 
                 <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
-                    <div class="producto-imagen"><img src="img/all-black.jpg" alt="All Black"></div>
+                    <div class="producto-imagen">
+                        <img src="img/all-black.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🕶️</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">Cyzone</span>
                         <h3>All Black</h3>
-                        <p>Aroma oriental maderoso de 90 ml[span_9](start_span)[span_9](end_span)[span_10](start_span)[span_10](end_span).</p>
+                        <p>Aroma oriental maderoso de 90 ml.</p>
                         <p class="precio">Precio: Bs. 115</p>
                         <p class="disponibilidad">Disponibilidad: Disponible</p>
                         <button type="button" class="btn-comprar">Añadir al carrito</button>
@@ -147,16 +199,19 @@
             </div>
         </section>
 
-        <!-- ROPA Y PRENDAS -->
+        <!-- SECCIÓN ROPA -->
         <section id="ropa" class="categoria">
             <h2>Ropa y Prendas</h2>
             <div class="catalogo">
                 <article class="producto" data-categoria="ropa" data-marca="nike">
-                    <div class="producto-imagen"><img src="img/nike-naranja.jpg" alt="Nike Naranja"></div>
+                    <div class="producto-imagen">
+                        <img src="img/nike-naranja.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🍊</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">Nike</span>
                         <h3>Sudadera Nike Clásica Naranja</h3>
-                        <p>Prenda deportiva con swoosh bordado. Talla L[span_11](start_span)[span_11](end_span)[span_12](start_span)[span_12](end_span).</p>
+                        <p>Prenda deportiva con swoosh bordado. Talla L.</p>
                         <p class="precio">Precio: Bs. 150</p>
                         <p class="disponibilidad">Disponibilidad: Disponible</p>
                         <button type="button" class="btn-comprar">Añadir al carrito</button>
@@ -164,11 +219,14 @@
                 </article>
 
                 <article class="producto" data-categoria="ropa" data-marca="nike">
-                    <div class="producto-imagen"><img src="img/nike-negra.jpg" alt="Nike Negra"></div>
+                    <div class="producto-imagen">
+                        <img src="img/nike-negra.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">⬛</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">Nike</span>
                         <h3>Sudadera Nike Black Edition</h3>
-                        <p>Estilo urbano minimalista en color negro[span_13](start_span)[span_13](end_span).</p>
+                        <p>Estilo urbano minimalista en color negro.</p>
                         <p class="precio">Precio: Bs. 150</p>
                         <p class="disponibilidad">Disponibilidad: Disponible</p>
                         <button type="button" class="btn-comprar">Añadir al carrito</button>
@@ -176,11 +234,14 @@
                 </article>
 
                 <article class="producto" data-categoria="ropa" data-marca="tommy">
-                    <div class="producto-imagen"><img src="img/tommy.jpg" alt="Tommy"></div>
+                    <div class="producto-imagen">
+                        <img src="img/tommy.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">👔</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">Tommy Hilfiger</span>
                         <h3>Sweater Tommy Hilfiger</h3>
-                        <p>Diseño casual elegante con bordado distintivo[span_14](start_span)[span_14](end_span)[span_15](start_span)[span_15](end_span).</p>
+                        <p>Diseño casual elegante con bordado distintivo.</p>
                         <p class="precio">Precio: Bs. 160</p>
                         <p class="disponibilidad">Disponibilidad: Disponible</p>
                         <button type="button" class="btn-comprar">Añadir al carrito</button>
@@ -188,11 +249,14 @@
                 </article>
 
                 <article class="producto" data-categoria="ropa" data-marca="nike">
-                    <div class="producto-imagen"><img src="img/jordan.jpg" alt="Jordan"></div>
+                    <div class="producto-imagen">
+                        <img src="img/jordan.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🏀</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">Jordan</span>
                         <h3>Chaqueta Deportiva Jordan Basketball</h3>
-                        <p>Chaqueta azul marino con detalles blancos[span_16](start_span)[span_16](end_span).</p>
+                        <p>Chaqueta azul marino con detalles blancos.</p>
                         <p class="precio">Precio: Bs. 180</p>
                         <p class="disponibilidad">Disponibilidad: Disponible</p>
                         <button type="button" class="btn-comprar">Añadir al carrito</button>
@@ -200,7 +264,10 @@
                 </article>
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="img/chaqueta-ang.jpg" alt="Chamarra Gamuza"></div>
+                    <div class="producto-imagen">
+                        <img src="img/chaqueta-ang.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🧥</span>
+                    </div>
                     <div class="producto-info">
                         <span class="marca">ANG</span>
                         <h3>Chamarra Gamuza con Forro Polar</h3>
@@ -212,7 +279,10 @@
                 </article>
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="img/sudadera-roja.jpg" alt="Sudadera Roja"></div>
+                    <div class="producto-imagen">
+                        <img src="img/sudadera-roja.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">❤️</span>
+                    </div>
                     <div class="producto-info">
                         <h3>Sudadera Roja de Corazones</h3>
                         <p>Diseño casual rojo con detalles de corazones blancos.</p>
@@ -223,7 +293,10 @@
                 </article>
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="img/sudadera-garris.jpg" alt="Sudadera Garris"></div>
+                    <div class="producto-imagen">
+                        <img src="img/sudadera-garris.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🪵</span>
+                    </div>
                     <div class="producto-info">
                         <h3>Sudadera Gris Garris Evans</h3>
                         <p>Estilo clásico en color gris con estampado corporativo.</p>
@@ -234,7 +307,10 @@
                 </article>
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="img/sudadera-negra-canguro.jpg" alt="Sudadera Canguro"></div>
+                    <div class="producto-imagen">
+                        <img src="img/sudadera-negra-canguro.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🖤</span>
+                    </div>
                     <div class="producto-info">
                         <h3>Sudadera Negra con Bolsillo Canguro</h3>
                         <p>Diseño urbano negro con bolsillo frontal.</p>
@@ -245,7 +321,10 @@
                 </article>
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="img/sudadera-pack.jpg" alt="Sudadera Pack"></div>
+                    <div class="producto-imagen">
+                        <img src="img/sudadera-pack.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">⭐</span>
+                    </div>
                     <div class="producto-info">
                         <h3>Sudadera Azul Pack National Team</h3>
                         <p>Estilo deportivo con estampado frontal y estrellas.</p>
@@ -256,7 +335,10 @@
                 </article>
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="img/sudadera-hilton.jpg" alt="Sudadera Hilton"></div>
+                    <div class="producto-imagen">
+                        <img src="img/sudadera-hilton.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🌊</span>
+                    </div>
                     <div class="producto-info">
                         <h3>Sudadera Celeste Hilton Head Island</h3>
                         <p>Diseño casual en tono azul claro universitario.</p>
@@ -267,7 +349,10 @@
                 </article>
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="img/sudadera-slainte.jpg" alt="Sudadera Slainte"></div>
+                    <div class="producto-imagen">
+                        <img src="img/sudadera-slainte.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">🍀</span>
+                    </div>
                     <div class="producto-info">
                         <h3>Sudadera Verde Sláinte</h3>
                         <p>Estilo verde oscuro con trébol de la suerte.</p>
@@ -279,34 +364,10 @@
             </div>
         </section>
 
-        <!-- JOYAS -->
+        <!-- SECCIÓN JOYAS -->
         <section id="joyas" class="categoria">
             <h2>Joyas y accesorios</h2>
             <div class="catalogo">
                 <article class="producto" data-categoria="joyas" data-marca="finart">
-                    <div class="producto-imagen"><img src="img/joyas-finart.jpg" alt="Joyas Finart"></div>
-                    <div class="producto-info">
-                        <span class="marca">Finart</span>
-                        <h3>Joyas Finart</h3>
-                        <p>Colección exclusiva de anillos y pulseras.</p>
-                        <p class="precio">Precio: Bs. 90</p>
-                        <p class="disponibilidad">Disponibilidad: Disponible</p>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <section id="contacto">
-            <h2>Contacto y Pedidos</h2>
-            <p>Comunícate con nosotros para consultas sobre stock en Bolivia.</p>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 TIENDA VYQ. Sexto de Secundaria.</p>
-    </footer>
-
-    <script src="js/app.js"></script>
-</body>
-</html>
+                    <div class="producto-imagen">
+                        <img src="img/joyas-finart.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
