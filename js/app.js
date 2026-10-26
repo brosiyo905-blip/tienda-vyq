@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     filtrarCatalogo();
 
-    // Carrito interactivo
+    // Carrito interactivo robusto
     let carrito = [];
     const botonesComprar = document.querySelectorAll(".btn-comprar");
     const contadorCarrito = document.getElementById("contador-carrito");
@@ -79,3 +79,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+});
