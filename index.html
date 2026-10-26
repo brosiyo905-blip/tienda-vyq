@@ -7,42 +7,17 @@
     <link rel="stylesheet" href="css/styles.css">
     <style>
         .carrito-flotante { 
-            position: fixed; 
-            bottom: 20px; 
-            right: 20px; 
-            background: #d4af37; 
-            color: #000; 
-            padding: 12px 24px; 
-            border-radius: 30px; 
-            font-weight: bold; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
-            z-index: 10000; 
-            cursor: pointer; 
-            border: 2px solid #000; 
-            font-size: 16px;
+            position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: #000; 
+            padding: 12px 24px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+            z-index: 10000; cursor: pointer; border: 2px solid #000; font-size: 16px; 
         }
         .carrito-flotante:hover { background: #e6c55c; }
-        
         .producto-imagen {
-            width: 100%;
-            height: 180px;
-            background: #f4f4f4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 10px;
+            width: 100%; height: 180px; background: #f4f4f4; display: flex; 
+            align-items: center; justify-content: center; border-radius: 6px; overflow: hidden; margin-bottom: 10px;
         }
-        .producto-imagen img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-        }
-        .img-fallback {
-            font-size: 48px;
-            display: none;
-        }
+        .producto-imagen img { width: 100%; height: 100%; object-fit: cover; }
+        .img-fallback { font-size: 48px; display: none; }
     </style>
 </head>
 <body>
@@ -59,11 +34,9 @@
         <a href="#contacto">Contacto</a>
     </nav>
 
-    <!-- BOTÓN DE CARRITO -->
     <button type="button" id="btn-ver-carrito" class="carrito-flotante">🛒 Carrito (<span id="contador-carrito">0</span>)</button>
 
     <main>
-        <!-- BUSCADOR Y FILTROS -->
         <section id="herramientas-catalogo" style="background: #fff; padding: 20px; margin: 20px auto; max-width: 800px; border-radius: 8px; border: 1px solid #e5dcc9;">
             <h2 style="margin-top: 0;">Encuentra tu producto</h2>
             <div style="margin-bottom: 15px;">
@@ -103,13 +76,13 @@
             <p>Descubre colecciones exclusivas para cada ocasión especial.</p>
         </section>
 
-        <!-- SECCIÓN PERFUMERÍA -->
+        <!-- PERFUMERÍA -->
         <section id="perfumeria" class="categoria">
             <h2>Perfumería</h2>
             <div class="catalogo">
                 <article class="producto" data-categoria="perfumeria" data-marca="esika">
                     <div class="producto-imagen">
-                        <img src="img/expression-sens.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/076df3e0-612d-4978-9132-b30...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🌸</span>
                     </div>
                     <div class="producto-info">
@@ -124,7 +97,7 @@
 
                 <article class="producto" data-categoria="perfumeria" data-marca="esika">
                     <div class="producto-imagen">
-                        <img src="img/expression-magic.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/2ea15892-3952-46fc-955e-c15c...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">✨</span>
                     </div>
                     <div class="producto-info">
@@ -139,7 +112,7 @@
 
                 <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
                     <div class="producto-imagen">
-                        <img src="img/sweet-black.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/30661f81-4857-4447-8a03-12fb...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🖤</span>
                     </div>
                     <div class="producto-info">
@@ -154,7 +127,7 @@
 
                 <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
                     <div class="producto-imagen">
-                        <img src="img/nitro.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/48b7de47-bf64-495a-831b-4c6...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">⚡</span>
                     </div>
                     <div class="producto-info">
@@ -169,7 +142,7 @@
 
                 <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
                     <div class="producto-imagen">
-                        <img src="img/nitro-air.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/542bf41e-4822-4401-8585-c0f5...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🌬️</span>
                     </div>
                     <div class="producto-info">
@@ -184,7 +157,7 @@
 
                 <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
                     <div class="producto-imagen">
-                        <img src="img/all-black.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/5e1b2855-afe3-48bb-ba5c-19e...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🕶️</span>
                     </div>
                     <div class="producto-info">
@@ -199,13 +172,13 @@
             </div>
         </section>
 
-        <!-- SECCIÓN ROPA -->
+        <!-- ROPA Y PRENDAS -->
         <section id="ropa" class="categoria">
             <h2>Ropa y Prendas</h2>
             <div class="catalogo">
                 <article class="producto" data-categoria="ropa" data-marca="nike">
                     <div class="producto-imagen">
-                        <img src="img/nike-naranja.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/67e178a4-400a-453e-8a5d-695...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🍊</span>
                     </div>
                     <div class="producto-info">
@@ -220,7 +193,7 @@
 
                 <article class="producto" data-categoria="ropa" data-marca="nike">
                     <div class="producto-imagen">
-                        <img src="img/nike-negra.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/6cc3d2f2-507b-4035-93a9-9b7...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">⬛</span>
                     </div>
                     <div class="producto-info">
@@ -235,7 +208,7 @@
 
                 <article class="producto" data-categoria="ropa" data-marca="tommy">
                     <div class="producto-imagen">
-                        <img src="img/tommy.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/72fb6492-721b-4391-b202-87d...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">👔</span>
                     </div>
                     <div class="producto-info">
@@ -250,7 +223,7 @@
 
                 <article class="producto" data-categoria="ropa" data-marca="nike">
                     <div class="producto-imagen">
-                        <img src="img/jordan.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/6686b92a-e55b-4e40-a2e9-88d...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🏀</span>
                     </div>
                     <div class="producto-info">
@@ -265,7 +238,7 @@
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
                     <div class="producto-imagen">
-                        <img src="img/chaqueta-ang.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/8a811007-c354-4ddd-8bd2-028...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🧥</span>
                     </div>
                     <div class="producto-info">
@@ -280,7 +253,7 @@
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
                     <div class="producto-imagen">
-                        <img src="img/sudadera-roja.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/8aeb8232-0082-4617-b996-b63...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">❤️</span>
                     </div>
                     <div class="producto-info">
@@ -294,7 +267,7 @@
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
                     <div class="producto-imagen">
-                        <img src="img/sudadera-garris.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/915b7aa9-aef4-4926-a6b9-b62...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🪵</span>
                     </div>
                     <div class="producto-info">
@@ -308,7 +281,7 @@
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
                     <div class="producto-imagen">
-                        <img src="img/sudadera-negra-canguro.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/960b0789-3d04-4070-a7c0-366...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🖤</span>
                     </div>
                     <div class="producto-info">
@@ -322,7 +295,7 @@
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
                     <div class="producto-imagen">
-                        <img src="img/sudadera-pack.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/9a026793-61cf-472b-860e-ba5...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">⭐</span>
                     </div>
                     <div class="producto-info">
@@ -336,7 +309,7 @@
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
                     <div class="producto-imagen">
-                        <img src="img/sudadera-hilton.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/c08cb5f3-afea-4c6d-bef2-d10ec...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🌊</span>
                     </div>
                     <div class="producto-info">
@@ -350,7 +323,7 @@
 
                 <article class="producto" data-categoria="ropa" data-marca="ang">
                     <div class="producto-imagen">
-                        <img src="img/sudadera-slainte.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/c59e6575-df50-40b7-abb7-7bb...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">🍀</span>
                     </div>
                     <div class="producto-info">
@@ -364,10 +337,12 @@
             </div>
         </section>
 
-        <!-- SECCIÓN JOYAS -->
+        <!-- JOYAS -->
         <section id="joyas" class="categoria">
             <h2>Joyas y accesorios</h2>
             <div class="catalogo">
                 <article class="producto" data-categoria="joyas" data-marca="finart">
                     <div class="producto-imagen">
-                        <img src="img/joyas-finart.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="img/ca672cdc-16e8-4764-8989-cfb...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <span class="img-fallback">💎</span>
+                    </div>
