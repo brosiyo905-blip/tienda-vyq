@@ -35,8 +35,21 @@
         .precio { font-size: 1.2rem; font-weight: bold; color: #b12704; }
         .btn-comprar { background-color: var(--dorado); color: var(--negro); border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; }
         .btn-comprar:hover { background-color: #f3e5ab; }
+        
+        /* BOTÓN FLOTANTE Y MODAL DE PEDIDO */
         .carrito-flotante { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: #fff; padding: 14px 24px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; cursor: pointer; border: 2px solid #fff; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
         .carrito-flotante:hover { background-color: #20ba5a; }
+
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-contenido { background: #fff; padding: 25px; border-radius: 10px; width: 90%; max-width: 450px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .modal-contenido h3 { margin-bottom: 15px; color: var(--negro); border-bottom: 2px solid var(--dorado); padding-bottom: 5px; }
+        .form-grupo { margin-bottom: 12px; display: flex; flex-direction: column; }
+        .form-grupo label { font-size: 0.9rem; font-weight: bold; margin-bottom: 5px; color: #333; }
+        .form-grupo input, .form-grupo select { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 0.95rem; }
+        .btn-enviar-wa { background-color: #25d366; color: #fff; border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; margin-top: 10px; }
+        .btn-enviar-wa:hover { background-color: #20ba5a; }
+        .btn-cerrar { background-color: #ccc; color: #333; border: none; padding: 8px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 5px; }
+        
         footer { background-color: var(--negro); color: #ffffff; text-align: center; padding: 20px; margin-top: 50px; border-top: 3px solid var(--dorado); }
     </style>
 </head>
@@ -44,7 +57,7 @@
 
     <header>
         <h1>TIENDA VYQ</h1>
-        <p>Elegancia, estilo y distinción • Proyecto de Grado</p>
+        <p>Elegancia, estilo y distinción • Bolivia</p>
     </header>
 
     <nav>
@@ -52,10 +65,41 @@
         <a href="#ropa">Ropa y Prendas</a>
     </nav>
 
-    <!-- BOTÓN CARRITO CONECTADO A WHATSAPP -->
-    <button type="button" id="btn-ver-carrito" class="carrito-flotante" onclick="enviarPedidoWhatsApp()">
+    <!-- BOTÓN CARRITO -->
+    <button type="button" class="carrito-flotante" onclick="abrirModal()">
         🛒 Ver Pedido (<span id="contador-carrito">0</span>)
     </button>
+
+    <!-- VENTANA EMERGENTE (MODAL) PARA DATOS DEL CLIENTE -->
+    <div id="modal-pedido" class="modal-overlay">
+        <div class="modal-contenido">
+            <h3>Finalizar Pedido por WhatsApp</h3>
+            <div id="resumen-carrito" style="font-size: 0.9rem; margin-bottom: 15px; color: #555; max-height: 120px; overflow-y: auto;"></div>
+            
+            <div class="form-grupo">
+                <label for="cliente-nombre">Nombre completo:</label>
+                <input type="text" id="cliente-nombre" placeholder="Ej. Juan Pérez">
+            </div>
+
+            <div class="form-grupo">
+                <label for="cliente-edad">Edad:</label>
+                <input type="number" id="cliente-edad" placeholder="Ej. 18">
+            </div>
+
+            <div class="form-grupo">
+                <label for="cliente-talla">Talla (o ml en perfumes):</label>
+                <input type="text" id="cliente-talla" placeholder="Ej. Talla L / 50ml">
+            </div>
+
+            <div class="form-grupo">
+                <label for="cliente-fecha">¿Para cuándo lo quiere?:</label>
+                <input type="text" id="cliente-fecha" placeholder="Ej. Para este viernes / Urgente">
+            </div>
+
+            <button type="button" class="btn-enviar-wa" onclick="enviarPedidoWhatsApp()">📲 Enviar Pedido al 63062304</button>
+            <button type="button" class="btn-cerrar" onclick="cerrarModal()">Cancelar / Seguir viendo</button>
+        </div>
+    </div>
 
     <main>
         <!-- SECCIÓN PERFUMERÍA -->
@@ -269,7 +313,7 @@
         <p>&copy; 2026 TIENDA VYQ. Sexto de Secundaria. Proyecto de Grado.</p>
     </footer>
 
-    <!-- JAVASCRIPT DE COMPRA DIRECTA E INFALIBLE -->
+    <!-- JAVASCRIPT DE PEDIDO Y WHATSAPP -->
     <script>
         var carritoCompras = [];
 
@@ -279,31 +323,25 @@
             if (contador) {
                 contador.textContent = carritoCompras.length;
             }
-            alert("✅ ¡Agregado al carrito: " + nombre + " (Bs. " + precio + ")!");
+            alert("✅ ¡Agregado al carrito: " + nombre + "!");
         }
 
-        function enviarPedidoWhatsApp() {
+        function abrirModal() {
             if (carritoCompras.length === 0) {
-                alert("🛒 Tu carrito está vacío. Añade al menos un producto para hacer un pedido.");
+                alert("🛒 Tu carrito está vacío. Selecciona al menos un producto.");
                 return;
             }
 
-            var mensaje = "¡Hola! Quisiera realizar el siguiente pedido en TIENDA VYQ:\n\n";
+            var htmlResumen = "<b>Productos seleccionados:</b><br><ul>";
             var total = 0;
-
             for (var i = 0; i < carritoCompras.length; i++) {
-                mensaje += (i + 1) + ". " + carritoCompras[i].nombre + " - Bs. " + carritoCompras[i].precio + "\n";
+                htmlResumen += "<li>" + carritoCompras[i].nombre + " (Bs. " + carritoCompras[i].precio + ")</li>";
                 total += carritoCompras[i].precio;
             }
+            htmlResumen += "</ul><br><b>Total a Pagar: Bs. " + total + "</b>";
 
-            mensaje += "\n*Total a pagar: Bs. " + total + "*\n¡Quedo a la espera de la confirmación!";
-
-            // Codificar mensaje para URL de WhatsApp
-            var urlWhatsApp = "https://wa.me/59170000000?text=" + encodeURIComponent(mensaje);
-
-            // Abrir WhatsApp directamente con el pedido armado
-            window.open(urlWhatsApp, "_blank");
+            document.getElementById("resumen-carrito").innerHTML = htmlResumen;
+            document.getElementById("modal-pedido").style.display = "flex";
         }
-    </script>
-</body>
-</html>
+
+        function cerrarModal()
