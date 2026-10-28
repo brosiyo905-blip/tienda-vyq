@@ -346,3 +346,358 @@
                         <img src="img/ca672cdc-16e8-4764-8989-cfb...jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span class="img-fallback">💎</span>
                     </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIENDA VYQ | Elegancia y Estilo</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .carrito-flotante { 
+            position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: #000; 
+            padding: 12px 24px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+            z-index: 10000; cursor: pointer; border: 2px solid #000; font-size: 16px; 
+        }
+        .carrito-flotante:hover { background: #e6c55c; }
+        .producto-imagen {
+            width: 100%; height: 180px; background: #f9f9f9; display: flex; 
+            align-items: center; justify-content: center; border-radius: 6px; overflow: hidden; margin-bottom: 10px;
+        }
+        .producto-imagen img { width: 100%; height: 100%; object-fit: cover; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TIENDA VYQ</h1>
+        <p>Elegancia, estilo y distinción</p>
+    </header>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#perfumeria">Perfumería</a>
+        <a href="#ropa">Ropa</a>
+        <a href="#joyas">Joyas y accesorios</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <button type="button" id="btn-ver-carrito" class="carrito-flotante">🛒 Carrito (<span id="contador-carrito">0</span>)</button>
+
+    <main>
+        <section id="herramientas-catalogo" style="background: #fff; padding: 20px; margin: 20px auto; max-width: 800px; border-radius: 8px; border: 1px solid #e5dcc9;">
+            <h2 style="margin-top: 0;">Encuentra tu producto</h2>
+            <div style="margin-bottom: 15px;">
+                <label for="busqueda" style="display: block; font-weight: bold; margin-bottom: 5px;">Buscar por nombre o marca</label>
+                <input type="search" id="busqueda" placeholder="Ej.: Expression, Nike, Nitro, Tommy..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <label for="filtro-categoria" style="display: block; font-weight: bold; margin-bottom: 5px;">Categoría</label>
+                    <select id="filtro-categoria" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="todas">Todas las categorías</option>
+                        <option value="perfumeria">Perfumería</option>
+                        <option value="ropa">Ropa</option>
+                        <option value="joyas">Joyas y accesorios</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="filtro-marca" style="display: block; font-weight: bold; margin-bottom: 5px;">Marca / Proveedor</label>
+                    <select id="filtro-marca" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                        <option value="todas">Todas las marcas</option>
+                        <option value="esika">Ésika</option>
+                        <option value="cyzone">Cyzone</option>
+                        <option value="nike">Nike / Jordan</option>
+                        <option value="tommy">Tommy Hilfiger</option>
+                        <option value="ang">ANG / Urbano</option>
+                        <option value="finart">Finart</option>
+                    </select>
+                </div>
+            </div>
+            <p id="contador-productos" style="margin-top: 15px; font-weight: bold; color: #333;">Cargando catálogo...</p>
+        </section>
+
+        <section id="inicio">
+            <h2>Bienvenido a TIENDA VYQ</h2>
+            <p>Descubre colecciones exclusivas para cada ocasión especial.</p>
+        </section>
+
+        <!-- PERFUMERÍA -->
+        <section id="perfumeria" class="categoria">
+            <h2>Perfumería</h2>
+            <div class="catalogo">
+                <article class="producto" data-categoria="perfumeria" data-marca="esika">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400" alt="Expression Sens"></div>
+                    <div class="producto-info">
+                        <span class="marca">Ésika</span>
+                        <h3>Expression Sens</h3>
+                        <p>Aroma Chipre floral de 50 ml.</p>
+                        <p class="precio">Precio: Bs. 145</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="perfumeria" data-marca="esika">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400" alt="Expression Magic"></div>
+                    <div class="producto-info">
+                        <span class="marca">Ésika</span>
+                        <h3>Expression Magic</h3>
+                        <p>Aroma floral frutal de 50 ml.</p>
+                        <p class="precio">Precio: Bs. 145</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=400" alt="Sweet Black Intense"></div>
+                    <div class="producto-info">
+                        <span class="marca">Cyzone</span>
+                        <h3>Sweet Black Intense</h3>
+                        <p>Aroma dulce de 50 ml.</p>
+                        <p class="precio">Precio: Bs. 115</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400" alt="Nitro"></div>
+                    <div class="producto-info">
+                        <span class="marca">Cyzone</span>
+                        <h3>Nitro</h3>
+                        <p>Aroma herbal aromática de 100 ml.</p>
+                        <p class="precio">Precio: Bs. 115</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400" alt="Nitro Air"></div>
+                    <div class="producto-info">
+                        <span class="marca">Cyzone</span>
+                        <h3>Nitro Air</h3>
+                        <p>Aroma herbal con notas de lavanda, 100 ml.</p>
+                        <p class="precio">Precio: Bs. 115</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=400" alt="All Black"></div>
+                    <div class="producto-info">
+                        <span class="marca">Cyzone</span>
+                        <h3>All Black</h3>
+                        <p>Aroma oriental maderoso de 90 ml.</p>
+                        <p class="precio">Precio: Bs. 115</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ROPA Y PRENDAS -->
+        <section id="ropa" class="categoria">
+            <h2>Ropa y Prendas</h2>
+            <div class="catalogo">
+                <article class="producto" data-categoria="ropa" data-marca="nike">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400" alt="Nike Naranja"></div>
+                    <div class="producto-info">
+                        <span class="marca">Nike</span>
+                        <h3>Sudadera Nike Clásica Naranja</h3>
+                        <p>Prenda deportiva con swoosh bordado. Talla L.</p>
+                        <p class="precio">Precio: Bs. 150</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="ropa" data-marca="nike">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=400" alt="Nike Negra"></div>
+                    <div class="producto-info">
+                        <span class="marca">Nike</span>
+                        <h3>Sudadera Nike Black Edition</h3>
+                        <p>Estilo urbano minimalista en color negro.</p>
+                        <p class="precio">Precio: Bs. 150</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="ropa" data-marca="tommy">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400" alt="Tommy"></div>
+                    <div class="producto-info">
+                        <span class="marca">Tommy Hilfiger</span>
+                        <h3>Sweater Tommy Hilfiger</h3>
+                        <p>Diseño casual elegante con bordado distintivo.</p>
+                        <p class="precio">Precio: Bs. 160</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="ropa" data-marca="nike">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1548883354-7622d03aca27?w=400" alt="Jordan"></div>
+                    <div class="producto-info">
+                        <span class="marca">Jordan</span>
+                        <h3>Chaqueta Deportiva Jordan Basketball</h3>
+                        <p>Chaqueta azul marino con detalles blancos.</p>
+                        <p class="precio">Precio: Bs. 180</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="ropa" data-marca="ang">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400" alt="Chamarra Gamuza"></div>
+                    <div class="producto-info">
+                        <span class="marca">ANG</span>
+                        <h3>Chamarra Gamuza con Forro Polar</h3>
+                        <p>Abrigo marrón tipo gamuza con cuello de corderito.</p>
+                        <p class="precio">Precio: Bs. 195</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="ropa" data-marca="ang">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=400" alt="Sudadera Roja"></div>
+                    <div class="producto-info">
+                        <h3>Sudadera Roja de Corazones</h3>
+                        <p>Diseño casual rojo con detalles de corazones blancos.</p>
+                        <p class="precio">Precio: Bs. 130</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="ropa" data-marca="ang">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400" alt="Sudadera Garris"></div>
+                    <div class="producto-info">
+                        <h3>Sudadera Gris Garris Evans</h3>
+                        <p>Estilo clásico en color gris con estampado corporativo.</p>
+                        <p class="precio">Precio: Bs. 135</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="ropa" data-marca="ang">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400" alt="Sudadera Canguro"></div>
+                    <div class="producto-info">
+                        <h3>Sudadera Negra con Bolsillo Canguro</h3>
+                        <p>Diseño urbano negro con bolsillo frontal.</p>
+                        <p class="precio">Precio: Bs. 140</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="ropa" data-marca="ang">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?w=400" alt="Sudadera Pack"></div>
+                    <div class="producto-info">
+                        <h3>Sudadera Azul Pack National Team</h3>
+                        <p>Estilo deportivo con estampado frontal y estrellas.</p>
+                        <p class="precio">Precio: Bs. 145</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="ropa" data-marca="ang">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400" alt="Sudadera Hilton"></div>
+                    <div class="producto-info">
+                        <h3>Sudadera Celeste Hilton Head Island</h3>
+                        <p>Diseño casual en tono azul claro universitario.</p>
+                        <p class="precio">Precio: Bs. 140</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+
+                <article class="producto" data-categoria="ropa" data-marca="ang">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=400" alt="Sudadera Slainte"></div>
+                    <div class="producto-info">
+                        <h3>Sudadera Verde Sláinte</h3>
+                        <p>Estilo verde oscuro con trébol de la suerte.</p>
+                        <p class="precio">Precio: Bs. 140</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- JOYAS -->
+        <section id="joyas" class="categoria">
+            <h2>Joyas y accesorios</h2>
+            <div class="catalogo">
+                <article class="producto" data-categoria="joyas" data-marca="finart">
+                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400" alt="Joyas Finart"></div>
+                    <div class="producto-info">
+                        <span class="marca">Finart</span>
+                        <h3>Joyas Finart</h3>
+                        <p>Colección exclusiva de anillos y pulseras.</p>
+                        <p class="precio">Precio: Bs. 90</p>
+                        <p class="disponibilidad">Disponibilidad: Disponible</p>
+                        <button type="button" class="btn-comprar">Añadir al carrito</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contacto">
+            <h2>Contacto y Pedidos</h2>
+            <p>Comunícate con nosotros para consultas sobre stock en Bolivia.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TIENDA VYQ. Sexto de Secundaria.</p>
+    </footer>
+
+    <!-- SCRIPT DE BÚSQUEDA Y CARRITO -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var campoBusqueda = document.getElementById("busqueda");
+            var filtroCategoria = document.getElementById("filtro-categoria");
+            var filtroMarca = document.getElementById("filtro-marca");
+            var contadorProductos = document.getElementById("contador-productos");
+            var productos = document.querySelectorAll(".producto");
+
+            function filtrar() {
+                var texto = campoBusqueda ? campoBusqueda.value.toLowerCase().trim() : "";
+                var cat = filtroCategoria ? filtroCategoria.value : "todas";
+                var marca = filtroMarca ? filtroMarca.value : "todas";
+                var visibles = 0;
+
+                productos.forEach(function(p) {
+                    var contenido = p.textContent.toLowerCase();
+                    var pCat = p.getAttribute("data-categoria");
+                    var pMarca = p.getAttribute("data-marca");
+
+                    var okTexto = contenido.indexOf(texto) !== -1;
+                    var okCat = (cat === "todas" || pCat === cat);
+                    var okMarca = (marca === "todas" || pMarca === marca);
+
+                    if (okTexto && okCat && okMarca) {
+                        p.style.display = "block";
+                        visibles++;
+                    } else {
+                        p.style.display = "none";
+                    }
+                });
+
+                if (contadorProductos) {
+                    contadorProductos.textContent = "Se muestran " + visibles + " productos.";
+                }
+            }
+
+            if (campoBusqueda) {
+                campoBusqueda.addEventListener("keyup", filtrar);
+                campoBusqueda.a
