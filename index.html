@@ -308,36 +308,41 @@
         <p>&copy; 2026 TIENDA VYQ. Sexto de Secundaria. Proyecto de Grado.</p>
     </footer>
 
-    <!-- LÓGICA JAVASCRIPT DIRECTA Y BLINDADA -->
+    <!-- JAVASCRIPT DIRECTO Y SIN BLOQUEOS -->
     <script>
-        (function() {
-            var carrito = [];
+        var carrito = [];
 
-            window.addEventListener("DOMContentLoaded", function() {
-                var campoBusqueda = document.getElementById("busqueda");
-                var filtroCat = document.getElementById("filtro-categoria");
-                var filtroMarca = document.getElementById("filtro-marca");
-                var contadorProd = document.getElementById("contador-productos");
-                var contadorCarrito = document.getElementById("contador-carrito");
-                var btnVerCarrito = document.getElementById("btn-ver-carrito");
-                var listaProductos = document.querySelectorAll(".producto");
+        var campoBusqueda = document.getElementById("busqueda");
+        var filtroCat = document.getElementById("filtro-categoria");
+        var filtroMarca = document.getElementById("filtro-marca");
+        var contadorProd = document.getElementById("contador-productos");
+        var contadorCarrito = document.getElementById("contador-carrito");
+        var btnVerCarrito = document.getElementById("btn-ver-carrito");
+        var listaProductos = document.querySelectorAll(".producto");
 
-                function ejecutarFiltro() {
-                    var texto = campoBusqueda.value.toLowerCase().trim();
-                    var catSel = filtroCat.value;
-                    var marcaSel = filtroMarca.value;
-                    var acumuladorVisibles = 0;
+        function ejecutarFiltro() {
+            var texto = campoBusqueda ? campoBusqueda.value.toLowerCase().trim() : "";
+            var catSel = filtroCat ? filtroCat.value : "todas";
+            var marcaSel = filtroMarca ? filtroMarca.value : "todas";
+            var acumuladorVisibles = 0;
 
-                    for (var i = 0; i < listaProductos.length; i++) {
-                        var p = listaProductos[i];
-                        var contenido = p.textContent.toLowerCase();
-                        var categoria = p.getAttribute("data-categoria");
-                        var marca = p.getAttribute("data-marca");
+            for (var i = 0; i < listaProductos.length; i++) {
+                var p = listaProductos[i];
+                var contenido = p.textContent.toLowerCase();
+                var categoria = p.getAttribute("data-categoria");
+                var marca = p.getAttribute("data-marca");
 
-                        var coincideTexto = contenido.indexOf(texto) !== -1;
-                        var coincideCat = (catSel === "todas" || categoria === catSel);
-                        var coincideMarca = (marcaSel === "todas" || marca === marcaSel);
+                var coincideTexto = contenido.indexOf(texto) !== -1;
+                var coincideCat = (catSel === "todas" || categoria === catSel);
+                var coincideMarca = (marcaSel === "todas" || marca === marcaSel);
 
-                        if (coincideTexto && coincideCat && coincideMarca) {
-                            p.style.display = "flex";
-                            acum
+                if (coincideTexto && coincideCat && coincideMarca) {
+                    p.style.display = "flex";
+                    acumuladorVisibles++;
+                } else {
+                    p.style.display = "none";
+                }
+            }
+
+            if (contadorProd) {
+                contadorProd.textContent = "Mostrando " + acu
