@@ -14,7 +14,7 @@
             --borde: #e0e0e0;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--fondo); color: var(--texto); line-height: 1.6; padding-bottom: 70px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--fondo); color: var(--texto); line-height: 1.6; }
         header { background-color: var(--negro); color: var(--dorado); text-align: center; padding: 30px 15px; border-bottom: 4px solid var(--dorado); }
         header h1 { font-size: 2.5rem; letter-spacing: 2px; text-transform: uppercase; }
         header p { color: #cccccc; font-size: 1rem; margin-top: 5px; }
@@ -30,26 +30,13 @@
         .producto-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
         .marca-tag { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; color: #888; margin-bottom: 5px; }
         .producto-info h3 { font-size: 1.1rem; color: var(--negro); margin-bottom: 8px; }
-        .producto-info p { font-size: 0.85rem; color: #666; margin-bottom: 12px; flex-grow: 1; }
-        .precio-linea { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .producto-info p { font-size: 0.85rem; color: #666; margin-bottom: 15px; flex-grow: 1; }
+        .precio-linea { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .precio { font-size: 1.2rem; font-weight: bold; color: #b12704; }
-        .btn-comprar { background-color: var(--dorado); color: var(--negro); border: none; padding: 10px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 0.95rem; }
+        .btn-comprar { background-color: var(--dorado); color: var(--negro); border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; }
         .btn-comprar:hover { background-color: #f3e5ab; }
-
-        /* BOTÓN FLOTANTE Y MODAL */
         .carrito-flotante { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: #fff; padding: 14px 24px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; cursor: pointer; border: 2px solid #fff; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
         .carrito-flotante:hover { background-color: #20ba5a; }
-
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-contenido { background: #fff; padding: 25px; border-radius: 10px; width: 90%; max-width: 450px; box-shadow: 0 5px 20px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto; }
-        .modal-contenido h3 { margin-bottom: 15px; color: var(--negro); border-bottom: 2px solid var(--dorado); padding-bottom: 5px; }
-        .form-grupo { margin-bottom: 12px; display: flex; flex-direction: column; }
-        .form-grupo label { font-size: 0.9rem; font-weight: bold; margin-bottom: 5px; color: #333; }
-        .form-grupo input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 0.95rem; }
-        .btn-enviar-wa { background-color: #25d366; color: #fff; border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; margin-top: 10px; }
-        .btn-enviar-wa:hover { background-color: #20ba5a; }
-        .btn-cerrar { background-color: #ccc; color: #333; border: none; padding: 8px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 5px; }
-
         footer { background-color: var(--negro); color: #ffffff; text-align: center; padding: 20px; margin-top: 50px; border-top: 3px solid var(--dorado); }
     </style>
 </head>
@@ -57,7 +44,7 @@
 
     <header>
         <h1>TIENDA VYQ</h1>
-        <p>Elegancia, estilo y distinción • Bolivia</p>
+        <p>Elegancia, estilo y distinción • Proyecto de Grado</p>
     </header>
 
     <nav>
@@ -65,41 +52,10 @@
         <a href="#ropa">Ropa y Prendas</a>
     </nav>
 
-    <!-- BOTÓN CARRITO FLOTANTE -->
-    <button type="button" class="carrito-flotante" onclick="abrirModal()">
-        🛒 Ver Carrito (<span id="contador-carrito">0</span>)
+    <!-- BOTÓN CARRITO CONECTADO A WHATSAPP -->
+    <button type="button" id="btn-ver-carrito" class="carrito-flotante" onclick="enviarPedidoWhatsApp()">
+        🛒 Ver Pedido (<span id="contador-carrito">0</span>)
     </button>
-
-    <!-- MODAL DE PEDIDO Y DATOS -->
-    <div id="modal-pedido" class="modal-overlay">
-        <div class="modal-contenido">
-            <h3>Tu Carrito y Datos de Pedido</h3>
-            <div id="resumen-carrito" style="font-size: 0.9rem; margin-bottom: 15px; color: #555; background: #f9f9f9; padding: 10px; border-radius: 5px;"></div>
-            
-            <div class="form-grupo">
-                <label for="cliente-nombre">Tu Nombre:</label>
-                <input type="text" id="cliente-nombre" placeholder="Ej. Juan Pérez">
-            </div>
-
-            <div class="form-grupo">
-                <label for="cliente-edad">Tu Edad:</label>
-                <input type="number" id="cliente-edad" placeholder="Ej. 18">
-            </div>
-
-            <div class="form-grupo">
-                <label for="cliente-talla">Talla (o ml en perfumes):</label>
-                <input type="text" id="cliente-talla" placeholder="Ej. Talla L / 50ml">
-            </div>
-
-            <div class="form-grupo">
-                <label for="cliente-fecha">¿Para cuándo lo quieres?:</label>
-                <input type="text" id="cliente-fecha" placeholder="Ej. Para este viernes / Urgente">
-            </div>
-
-            <button type="button" class="btn-enviar-wa" onclick="enviarPedidoWhatsApp()">📲 Enviar Pedido al 63062304</button>
-            <button type="button" class="btn-cerrar" onclick="cerrarModal()">Cerrar / Seguir viendo</button>
-        </div>
-    </div>
 
     <main>
         <!-- SECCIÓN PERFUMERÍA -->
@@ -110,7 +66,7 @@
                 <div class="producto-info">
                     <span class="marca-tag">Ésika</span>
                     <h3>Expression Sens</h3>
-                    <p><b>Aroma:</b> Chipre floral elegante.<br><b>Contenido:</b> 50 ml.</p>
+                    <p>Aroma Chipre floral de 50 ml.</p>
                     <div class="precio-linea"><span class="precio">Bs. 145</span></div>
                     <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Expression Sens', 145)">Añadir al carrito</button>
                 </div>
@@ -121,7 +77,7 @@
                 <div class="producto-info">
                     <span class="marca-tag">Ésika</span>
                     <h3>Expression Magic</h3>
-                    <p><b>Aroma:</b> Floral frutal cautivador.<br><b>Contenido:</b> 50 ml.</p>
+                    <p>Aroma floral frutal de 50 ml.</p>
                     <div class="precio-linea"><span class="precio">Bs. 145</span></div>
                     <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Expression Magic', 145)">Añadir al carrito</button>
                 </div>
@@ -132,7 +88,7 @@
                 <div class="producto-info">
                     <span class="marca-tag">Cyzone</span>
                     <h3>Sweet Black Intense</h3>
-                    <p><b>Aroma:</b> Dulce intenso juvenil.<br><b>Contenido:</b> 50 ml.</p>
+                    <p>Aroma dulce intenso de 50 ml.</p>
                     <div class="precio-linea"><span class="precio">Bs. 115</span></div>
                     <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sweet Black Intense', 115)">Añadir al carrito</button>
                 </div>
@@ -143,7 +99,7 @@
                 <div class="producto-info">
                     <span class="marca-tag">Cyzone</span>
                     <h3>All Black</h3>
-                    <p><b>Aroma:</b> Oriental maderoso.<br><b>Contenido:</b> 90 ml.</p>
+                    <p>Aroma oriental maderoso de 90 ml.</p>
                     <div class="precio-linea"><span class="precio">Bs. 115</span></div>
                     <button type="button" class="btn-comprar" onclick="agregarAlCarrito('All Black', 115)">Añadir al carrito</button>
                 </div>
@@ -154,7 +110,7 @@
                 <div class="producto-info">
                     <span class="marca-tag">Cyzone</span>
                     <h3>Nitro Air</h3>
-                    <p><b>Aroma:</b> Herbal fresco con lavanda.<br><b>Contenido:</b> 100 ml.</p>
+                    <p>Aroma herbal con notas de lavanda, 100 ml.</p>
                     <div class="precio-linea"><span class="precio">Bs. 115</span></div>
                     <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Nitro Air', 115)">Añadir al carrito</button>
                 </div>
@@ -313,7 +269,7 @@
         <p>&copy; 2026 TIENDA VYQ. Sexto de Secundaria. Proyecto de Grado.</p>
     </footer>
 
-    <!-- SCRIPT INFALIBLE 100% DIRECTO -->
+    <!-- JAVASCRIPT DE COMPRA DIRECTA E INFALIBLE -->
     <script>
         var carritoCompras = [];
 
@@ -323,21 +279,32 @@
             if (contador) {
                 contador.textContent = carritoCompras.length;
             }
-            alert("✅ ¡Agregado al carrito: " + nombre + "!");
+            alert("✅ ¡Agregado al carrito: " + nombre + " (Bs. " + precio + ")!");
         }
 
-        function abrirModal() {
+        function enviarPedidoWhatsApp() {
             if (carritoCompras.length === 0) {
-                alert("🛒 Tu carrito está vacío. Añade al menos un producto.");
+                alert("🛒 Tu carrito está vacío. Añade al menos un producto para hacer un pedido.");
                 return;
             }
 
-            var htmlResumen = "<b>Productos en tu carrito:</b><br><ul>";
+            var mensaje = "¡Hola! Quisiera realizar el siguiente pedido en TIENDA VYQ:\n\n";
             var total = 0;
+
             for (var i = 0; i < carritoCompras.length; i++) {
-                htmlResumen += "<li>" + carritoCompras[i].nombre + " - Bs. " + carritoCompras[i].precio + "</li>";
+                mensaje += (i + 1) + ". " + carritoCompras[i].nombre + " - Bs. " + carritoCompras[i].precio + "\n";
                 total += carritoCompras[i].precio;
             }
-            htmlResumen += "</ul><br><b>Total a Pagar: Bs. " + total + "</b>";
 
-            document.getEle
+            mensaje += "\n*Total a pagar: Bs. " + total + "*\n¡Quedo a la espera de la confirmación!";
+
+            // Codificar mensaje para URL de WhatsApp
+            var urlWhatsApp = "https://wa.me/59170000000?text=" + encodeURIComponent(mensaje);
+
+            // Abrir WhatsApp directamente con el pedido armado
+            window.open(urlWhatsApp, "_blank");
+        }
+    </script>
+</body>
+    </html>
+    
