@@ -4,57 +4,266 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIENDA VYQ | Elegancia y Estilo</title>
+    <!-- ESTILOS CSS INCRUSTADOS EN EL HTML -->
     <style>
         :root {
             --dorado: #d4af37;
-            --negro: #111111;
-            --gris-claro: #fcfbf7;
+            --dorado-hover: #f3e5ab;
+            --negro: #121212;
+            --gris-oscuro: #1e1e1e;
+            --fondo: #f8f9fa;
+            --texto: #212529;
+            --borde: #e0e0e0;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: var(--gris-claro); color: #333; }
-        header { background: var(--negro); color: var(--dorado); text-align: center; padding: 25px; border-bottom: 4px solid var(--dorado); }
-        header h1 { margin: 0; font-size: 2.2rem; letter-spacing: 2px; }
-        header p { margin: 5px 0 0; color: #bbb; font-size: 1rem; }
 
-        nav { background: #222; display: flex; justify-content: center; padding: 12px; gap: 20px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; }
-        nav a { color: #fff; text-decoration: none; font-weight: bold; transition: color 0.3s; }
-        nav a:hover { color: var(--dorado); }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        main { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
-        
-        .panel-control { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #e1e8ed; }
-        .panel-control h3 { margin-top: 0; color: var(--negro); }
-        .filtros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .panel-control input, .panel-control select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+        }
 
-        h2.categoria-titulo { border-bottom: 2px solid var(--dorado); padding-bottom: 8px; margin-top: 40px; color: var(--negro); }
-        
-        .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-top: 20px; }
-        .producto { background: #fff; border: 1px solid #e1e8ed; border-radius: 10px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; transition: transform 0.2s; }
-        .producto:hover { transform: translateY(-5px); }
-        
-        .producto-imagen { width: 100%; height: 200px; background: #fff; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .producto-imagen img { width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }
-        
-        .producto-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
-        .marca { font-size: 12px; font-weight: bold; color: #777; text-transform: uppercase; margin-bottom: 3px; }
-        .producto-info h3 { margin: 0 0 8px 0; font-size: 1.1rem; color: var(--negro); }
-        .producto-info p { font-size: 13px; color: #666; margin: 0 0 12px 0; flex-grow: 1; }
-        
-        .precio-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .precio { font-weight: bold; color: #b12704; font-size: 1.15rem; }
-        .disponibilidad { font-size: 12px; color: #007600; font-weight: bold; }
+        header {
+            background-color: var(--negro);
+            color: var(--dorado);
+            text-align: center;
+            padding: 30px 15px;
+            border-bottom: 4px solid var(--dorado);
+        }
 
-        .btn-comprar { background: var(--dorado); color: #000; border: none; padding: 10px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; transition: background 0.2s; }
-        .btn-comprar:hover { background: #e6c55c; }
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
 
-        .carrito-flotante { position: fixed; bottom: 25px; right: 25px; background: var(--dorado); color: #000; padding: 14px 24px; border-radius: 35px; font-weight: bold; box-shadow: 0 6px 20px rgba(0,0,0,0.25); z-index: 1000; cursor: pointer; border: 2px solid #000; font-size: 16px; }
-        .carrito-flotante:hover { background: #e6c55c; }
+        header p {
+            color: #cccccc;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
 
-        footer { background: var(--negro); color: #fff; text-align: center; padding: 25px; margin-top: 50px; border-top: 3px solid var(--dorado); }
-        footer p { margin: 5px 0; color: #bbb; }
+        nav {
+            background-color: var(--gris-oscuro);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--dorado);
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        .panel-busqueda {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--borde);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .panel-busqueda h3 {
+            margin-bottom: 15px;
+            color: var(--negro);
+            border-bottom: 2px solid var(--dorado);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        .grid-filtros {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-filtros {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .campo-grupo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .campo-grupo label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .campo-grupo input, .campo-grupo select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+
+        .contador-info {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        .categoria-titulo {
+            font-size: 1.8rem;
+            color: var(--negro);
+            margin: 30px 0 15px;
+            border-left: 5px solid var(--dorado);
+            padding-left: 10px;
+        }
+
+        .catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .producto {
+            background: #ffffff;
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .producto:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .producto-imagen {
+            width: 100%;
+            height: 220px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .producto-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .producto-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .marca-tag {
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .producto-info h3 {
+            font-size: 1.1rem;
+            color: var(--negro);
+            margin-bottom: 8px;
+        }
+
+        .producto-info p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .precio-linea {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .precio {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #b12704;
+        }
+
+        .btn-comprar {
+            background-color: var(--dorado);
+            color: var(--negro);
+            border: none;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        .btn-comprar:hover {
+            background-color: var(--dorado-hover);
+        }
+
+        .carrito-flotante {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--dorado);
+            color: var(--negro);
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            cursor: pointer;
+            border: 2px solid var(--negro);
+            font-size: 1rem;
+        }
+
+        footer {
+            background-color: var(--negro);
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            border-top: 3px solid var(--dorado);
+        }
     </style>
 </head>
 <body>
+
     <header>
         <h1>TIENDA VYQ</h1>
         <p>Elegancia, estilo y distinción • Proyecto de Grado</p>
@@ -66,30 +275,33 @@
         <a href="#joyas">Joyas y Accesorios</a>
     </nav>
 
-    <button type="button" id="btn-ver-carrito" class="carrito-flotante">🛒 Carrito (<span id="contador-carrito">0</span>)</button>
+    <!-- BOTÓN DE CARRITO DE COMPRAS -->
+    <button type="button" id="btn-ver-carrito" class="carrito-flotante">
+        🛒 Carrito (<span id="contador-carrito">0</span>)
+    </button>
 
     <main>
-        <!-- PANEL DE BÚSQUEDA Y FILTROS -->
-        <div class="panel-control">
-            <h3>🔍 Buscador y Filtros en Tiempo Real</h3>
-            <div style="margin-bottom: 12px;">
-                <label for="busqueda" style="font-weight: bold; font-size: 13px;">Buscar producto:</label>
-                <input type="text" id="busqueda" placeholder="Ej.: Expression, Nike, Nitro, Tommy, Finart...">
-            </div>
-            <div class="filtros-grid">
-                <div>
-                    <label for="filtro-categoria" style="font-weight: bold; font-size: 13px;">Categoría:</label>
+        <!-- BUSCADOR Y FILTROS -->
+        <section class="panel-busqueda">
+            <h3>Buscador de Productos</h3>
+            <div class="grid-filtros">
+                <div class="campo-grupo">
+                    <label for="busqueda">Buscar por nombre o detalle:</label>
+                    <input type="text" id="busqueda" placeholder="Ej.: Expression, Nike, Nitro, Tommy, Corazones...">
+                </div>
+                <div class="campo-grupo">
+                    <label for="filtro-categoria">Categoría:</label>
                     <select id="filtro-categoria">
-                        <option value="todas">Todas las categorías</option>
+                        <option value="todas">Todas</option>
                         <option value="perfumeria">Perfumería</option>
                         <option value="ropa">Ropa</option>
-                        <option value="joyas">Joyas y accesorios</option>
+                        <option value="joyas">Joyas y Accesorios</option>
                     </select>
                 </div>
-                <div>
-                    <label for="filtro-marca" style="font-weight: bold; font-size: 13px;">Marca / Proveedor:</label>
+                <div class="campo-grupo">
+                    <label for="filtro-marca">Marca:</label>
                     <select id="filtro-marca">
-                        <option value="todas">Todas las marcas</option>
+                        <option value="todas">Todas</option>
                         <option value="esika">Ésika</option>
                         <option value="cyzone">Cyzone</option>
                         <option value="nike">Nike / Jordan</option>
@@ -99,212 +311,211 @@
                     </select>
                 </div>
             </div>
-            <p id="contador-productos" style="margin-top: 15px; font-weight: bold; color: #555; font-size: 13px;">Cargando...</p>
+            <div id="contador-productos" class="contador-info">Cargando productos...</div>
+        </section>
+
+        <!-- SECCIÓN PERFUMERÍA -->
+        <h2 class="categoria-titulo" id="perfumeria">Perfumería</h2>
+        <div class="catalogo">
+            <article class="producto" data-categoria="perfumeria" data-marca="esika">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/111111/d4af37/png?text=Esika+Expression+Sens" alt="Expression Sens">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">Ésika</span>
+                    <h3>Expression Sens</h3>
+                    <p>Aroma Chipre floral de 50 ml.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 145</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
+
+            <article class="producto" data-categoria="perfumeria" data-marca="esika">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/111111/d4af37/png?text=Esika+Expression+Magic" alt="Expression Magic">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">Ésika</span>
+                    <h3>Expression Magic</h3>
+                    <p>Aroma floral frutal de 50 ml.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 145</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
+
+            <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/111111/d4af37/png?text=Sweet+Black+Intense" alt="Sweet Black Intense">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">Cyzone</span>
+                    <h3>Sweet Black Intense</h3>
+                    <p>Aroma dulce intenso de 50 ml.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 115</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
+
+            <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/111111/d4af37/png?text=Cyzone+Nitro+100ml" alt="Nitro">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">Cyzone</span>
+                    <h3>Nitro</h3>
+                    <p>Aroma herbal aromática de 100 ml.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 115</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
+
+            <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/111111/d4af37/png?text=Cyzone+Nitro+Air" alt="Nitro Air">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">Cyzone</span>
+                    <h3>Nitro Air</h3>
+                    <p>Aroma herbal con notas de lavanda, 100 ml.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 115</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
+
+            <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/111111/d4af37/png?text=Cyzone+All+Black" alt="All Black">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">Cyzone</span>
+                    <h3>All Black</h3>
+                    <p>Aroma oriental maderoso de 90 ml.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 115</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
         </div>
 
-        <!-- PERFUMERÍA -->
-        <section id="perfumeria">
-            <h2 class="categoria-titulo">Perfumería</h2>
-            <div class="catalogo">
-                <article class="producto" data-categoria="perfumeria" data-marca="esika">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400" alt="Expression Sens"></div>
-                    <div class="producto-info">
-                        <span class="marca">Ésika</span>
-                        <h3>Expression Sens</h3>
-                        <p>Aroma Chipre floral de 50 ml.</p>
-                        <div class="precio-row"><span class="precio">Bs. 145</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
+        <!-- SECCIÓN ROPA -->
+        <h2 class="categoria-titulo" id="ropa">Ropa y Prendas</h2>
+        <div class="catalogo">
+            <article class="producto" data-categoria="ropa" data-marca="nike">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/ff6600/ffffff/png?text=Sudadera+Nike+Naranja" alt="Nike Naranja">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">Nike</span>
+                    <h3>Sudadera Nike Clásica Naranja</h3>
+                    <p>Prenda deportiva con swoosh bordado. Talla L.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 150</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
 
-                <article class="producto" data-categoria="perfumeria" data-marca="esika">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=400" alt="Expression Magic"></div>
-                    <div class="producto-info">
-                        <span class="marca">Ésika</span>
-                        <h3>Expression Magic</h3>
-                        <p>Aroma floral frutal de 50 ml.</p>
-                        <div class="precio-row"><span class="precio">Bs. 145</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
+            <article class="producto" data-categoria="ropa" data-marca="nike">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/111111/ffffff/png?text=Sudadera+Nike+Negra" alt="Nike Negra">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">Nike</span>
+                    <h3>Sudadera Nike Black Edition</h3>
+                    <p>Estilo urbano minimalista en color negro.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 150</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
 
-                <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?w=400" alt="Sweet Black Intense"></div>
-                    <div class="producto-info">
-                        <span class="marca">Cyzone</span>
-                        <h3>Sweet Black Intense</h3>
-                        <p>Aroma dulce de 50 ml.</p>
-                        <div class="precio-row"><span class="precio">Bs. 115</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
+            <article class="producto" data-categoria="ropa" data-marca="tommy">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/002b49/ffffff/png?text=Sweater+Tommy+Hilfiger" alt="Tommy">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">Tommy Hilfiger</span>
+                    <h3>Sweater Tommy Hilfiger</h3>
+                    <p>Diseño casual elegante con bordado distintivo.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 160</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
 
-                <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400" alt="Nitro"></div>
-                    <div class="producto-info">
-                        <span class="marca">Cyzone</span>
-                        <h3>Nitro</h3>
-                        <p>Aroma herbal aromática de 100 ml.</p>
-                        <div class="precio-row"><span class="precio">Bs. 115</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
+            <article class="producto" data-categoria="ropa" data-marca="nike">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/0c2340/ffffff/png?text=Chaqueta+Jordan+Basketball" alt="Jordan">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">Jordan</span>
+                    <h3>Chaqueta Deportiva Jordan Basketball</h3>
+                    <p>Chaqueta azul marino con detalles blancos.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 180</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
 
-                <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400" alt="Nitro Air"></div>
-                    <div class="producto-info">
-                        <span class="marca">Cyzone</span>
-                        <h3>Nitro Air</h3>
-                        <p>Aroma herbal con notas de lavanda, 100 ml.</p>
-                        <div class="precio-row"><span class="precio">Bs. 115</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
+            <article class="producto" data-categoria="ropa" data-marca="ang">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/5c4033/ffffff/png?text=Chamarra+Gamuza+ANG" alt="Chamarra Gamuza">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">ANG</span>
+                    <h3>Chamarra Gamuza con Forro Polar</h3>
+                    <p>Abrigo marrón tipo gamuza con cuello de corderito.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 195</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
 
-                <article class="producto" data-categoria="perfumeria" data-marca="cyzone">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=400" alt="All Black"></div>
-                    <div class="producto-info">
-                        <span class="marca">Cyzone</span>
-                        <h3>All Black</h3>
-                        <p>Aroma oriental maderoso de 90 ml.</p>
-                        <div class="precio-row"><span class="precio">Bs. 115</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
-            </div>
-        </section>
+            <article class="producto" data-categoria="ropa" data-marca="ang">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/cc0000/ffffff/png?text=Sudadera+Roja+Corazones" alt="Sudadera Roja">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">ANG / Urbano</span>
+                    <h3>Sudadera Roja de Corazones</h3>
+                    <p>Diseño casual rojo con detalles de corazones blancos.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 130</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
 
-        <!-- ROPA Y PRENDAS -->
-        <section id="ropa">
-            <h2 class="categoria-titulo">Ropa y Prendas</h2>
-            <div class="catalogo">
-                <article class="producto" data-categoria="ropa" data-marca="nike">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=400" alt="Nike Naranja"></div>
-                    <div class="producto-info">
-                        <span class="marca">Nike</span>
-                        <h3>Sudadera Nike Clásica Naranja</h3>
-                        <p>Prenda deportiva con swoosh bordado. Talla L.</p>
-                        <div class="precio-row"><span class="precio">Bs. 150</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
+            <article class="producto" data-categoria="ropa" data-marca="ang">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/888888/ffffff/png?text=Sudadera+Gris+Garris" alt="Sudadera Gris">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">ANG / Urbano</span>
+                    <h3>Sudadera Gris Garris Evans</h3>
+                    <p>Estilo clásico en color gris con estampado corporativo.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 135</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
 
-                <article class="producto" data-categoria="ropa" data-marca="nike">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=400" alt="Nike Negra"></div>
-                    <div class="producto-info">
-                        <span class="marca">Nike</span>
-                        <h3>Sudadera Nike Black Edition</h3>
-                        <p>Estilo urbano minimalista en color negro.</p>
-                        <div class="precio-row"><span class="precio">Bs. 150</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
+            <article class="producto" data-categoria="ropa" data-marca="ang">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/222222/ffffff/png?text=Sudadera+Negra+Canguro" alt="Sudadera Canguro">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">ANG / Urbano</span>
+                    <h3>Sudadera Negra con Bolsillo Canguro</h3>
+                    <p>Diseño urbano negro con bolsillo frontal.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 140</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
 
-                <article class="producto" data-categoria="ropa" data-marca="tommy">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400" alt="Tommy"></div>
-                    <div class="producto-info">
-                        <span class="marca">Tommy Hilfiger</span>
-                        <h3>Sweater Tommy Hilfiger</h3>
-                        <p>Diseño casual elegante con bordado distintivo.</p>
-                        <div class="precio-row"><span class="precio">Bs. 160</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
+            <article class="producto" data-categoria="ropa" data-marca="ang">
+                <div class="producto-imagen">
+                    <img src="https://placehold.co/400x400/003366/ffffff/png?text=Sudadera+Azul+Pack" alt="Sudadera Pack">
+                </div>
+                <div class="producto-info">
+                    <span class="marca-tag">ANG / Urbano</span>
+                    <h3>Sudadera Azul Pack National Team</h3>
+                    <p>Estilo deportivo con estampado frontal y estrellas.</p>
+                    <div class="precio-linea"><span class="precio">Bs. 145</span></div>
+                    <button type="button" class="btn-comprar">Añadir al carrito</button>
+                </div>
+            </article>
 
-                <article class="producto" data-categoria="ropa" data-marca="nike">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1548883354-7622d03aca27?w=400" alt="Jordan"></div>
-                    <div class="producto-info">
-                        <span class="marca">Jordan</span>
-                        <h3>Chaqueta Deportiva Jordan Basketball</h3>
-                        <p>Chaqueta azul marino con detalles blancos.</p>
-                        <div class="precio-row"><span class="precio">Bs. 180</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
-
-                <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400" alt="Chamarra Gamuza"></div>
-                    <div class="producto-info">
-                        <span class="marca">ANG</span>
-                        <h3>Chamarra Gamuza con Forro Polar</h3>
-                        <p>Abrigo marrón tipo gamuza con cuello de corderito.</p>
-                        <div class="precio-row"><span class="precio">Bs. 195</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
-
-                <!-- Sudaderas con imágenes específicas y precisas -->
-                <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1556905055-7f358a7a47b2?w=400" alt="Sudadera Roja"></div>
-                    <div class="producto-info">
-                        <span class="marca">ANG / Urbano</span>
-                        <h3>Sudadera Roja de Corazones</h3>
-                        <p>Diseño casual rojo con detalles de corazones blancos.</p>
-                        <div class="precio-row"><span class="precio">Bs. 130</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
-
-                <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400" alt="Sudadera Garris"></div>
-                    <div class="producto-info">
-                        <span class="marca">ANG / Urbano</span>
-                        <h3>Sudadera Gris Garris Evans</h3>
-                        <p>Estilo clásico en color gris con estampado corporativo.</p>
-                        <div class="precio-row"><span class="precio">Bs. 135</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
-
-                <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=400" alt="Sudadera Canguro"></div>
-                    <div class="producto-info">
-                        <span class="marca">ANG / Urbano</span>
-                        <h3>Sudadera Negra con Bolsillo Canguro</h3>
-                        <p>Diseño urbano negro con bolsillo frontal.</p>
-                        <div class="precio-row"><span class="precio">Bs. 140</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
-
-                <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?w=400" alt="Sudadera Pack"></div>
-                    <div class="producto-info">
-                        <span class="marca">ANG / Urbano</span>
-                        <h3>Sudadera Azul Pack National Team</h3>
-                        <p>Estilo deportivo con estampado frontal y estrellas.</p>
-                        <div class="precio-row"><span class="precio">Bs. 145</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
-
-                <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400" alt="Sudadera Hilton"></div>
-                    <div class="producto-info">
-                        <span class="marca">ANG / Urbano</span>
-                        <h3>Sudadera Celeste Hilton Head Island</h3>
-                        <p>Diseño casual en tono azul claro universitario.</p>
-                        <div class="precio-row"><span class="precio">Bs. 140</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
-
-                <article class="producto" data-categoria="ropa" data-marca="ang">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=400" alt="Sudadera Slainte"></div>
-                    <div class="producto-info">
-                        <span class="marca">ANG / Urbano</span>
-                        <h3>Sudadera Verde Sláinte</h3>
-                        <p>Estilo verde oscuro con trébol de la suerte.</p>
-                        <div class="precio-row"><span class="precio">Bs. 140</span><span class="disponibilidad">Disponible</span></div>
-                        <button type="button" class="btn-comprar">Añadir al carrito</button>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- JOYAS -->
-        <section id="joyas">
-            <h2 class="categoria-titulo">Joyas y Accesorios</h2>
-            <div class="catalogo">
-                <article class="producto" data-categoria="joyas" data-marca="finart">
-                    <div class="producto-imagen"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=4
+            <article class="producto" data-categoria="ropa" data-marca="ang">
+                <div class="producto-imagen">
+         
