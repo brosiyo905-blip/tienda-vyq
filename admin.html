@@ -41,7 +41,10 @@
         th { background-color: var(--negro); color: var(--dorado); }
         tr:hover { background-color: #f9f9f9; }
 
+        .input-precio { width: 90px; padding: 5px; font-weight: bold; border: 1px solid var(--borde); border-radius: 4px; }
+        .btn-guardar { background-color: #28a745; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 5px; }
         .btn-eliminar { background-color: #dc3545; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-guardar:hover { background-color: #218838; }
         .btn-eliminar:hover { background-color: #c82333; }
 
         footer { background-color: var(--negro); color: #ffffff; text-align: center; padding: 20px; margin-top: 50px; border-top: 3px solid var(--dorado); }
@@ -59,7 +62,7 @@
         <div class="tarjetas-stats">
             <div class="card-stat">
                 <h4>Total Productos</h4>
-                <p id="total-productos">0</p>
+                <p id="total-productos">18</p>
             </div>
             <div class="card-stat">
                 <h4>Categorías Activas</h4>
@@ -73,7 +76,7 @@
 
         <!-- GESTIÓN DE CATÁLOGO -->
         <div class="panel-seccion">
-            <h3>Gestión de Inventario y Productos</h3>
+            <h3>Gestión de Inventario y Modificación de Precios</h3>
             
             <!-- FORMULARIO PARA AGREGAR NUEVOS PRODUCTOS -->
             <form id="form-producto" class="form-agregar">
@@ -82,7 +85,6 @@
                     <option value="">Seleccionar Categoría</option>
                     <option value="Perfumería">Perfumería</option>
                     <option value="Ropa y Prendas">Ropa y Prendas</option>
-                    <option value="Accesorios">Accesorios</option>
                 </select>
                 <input type="number" id="precio-prod" placeholder="Precio (Bs.)" min="1" required>
                 <button type="submit" class="btn-accion">+ Agregar Producto</button>
@@ -95,11 +97,11 @@
                         <th>Nombre del Producto</th>
                         <th>Categoría</th>
                         <th>Precio (Bs.)</th>
-                        <th>Acciones</th>
+                        <th>Acciones (Modificar / Borrar)</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-inventario">
-                    <!-- Los productos se cargan dinámicamente desde JavaScript -->
+                    <!-- Los productos se cargan dinámicamente -->
                 </tbody>
             </table>
         </div>
@@ -109,9 +111,8 @@
         <p>&copy; 2026 TIENDA VYQ - Módulo de Administración • Proyecto de Grado</p>
     </footer>
 
-    <!-- LÓGICA JAVASCRIPT DEL PANEL -->
     <script>
-        // Productos por defecto si la base de datos local está vacía
+        // Los 18 productos reales (5 perfumes + 13 prendas/accesorios)
         const productosIniciales = [
             { id: 1, nombre: "Expression Sens (Ésika)", categoria: "Perfumería", precio: 145 },
             { id: 2, nombre: "Expression Magic (Ésika)", categoria: "Perfumería", precio: 145 },
@@ -122,17 +123,23 @@
             { id: 7, nombre: "Sudadera Nike Fayetteville Tech", categoria: "Ropa y Prendas", precio: 150 },
             { id: 8, nombre: "Sweater Tommy Hilfiger", categoria: "Ropa y Prendas", precio: 160 },
             { id: 9, nombre: "Chaqueta Jordan Basketball", categoria: "Ropa y Prendas", precio: 180 },
-            { id: 10, nombre: "Chamarra Gamuza con Forro Polar", categoria: "Ropa y Prendas", precio: 195 }
+            { id: 10, nombre: "Chamarra Gamuza con Forro Polar", categoria: "Ropa y Prendas", precio: 195 },
+            { id: 11, nombre: "Chompa Cuello Redondo Varón", categoria: "Ropa y Prendas", precio: 130 },
+            { id: 12, nombre: "Chompa Cuello en V Varón", categoria: "Ropa y Prendas", precio: 130 },
+            { id: 13, nombre: "Chompa Cardigan Dama/Varón", categoria: "Ropa y Prendas", precio: 140 },
+            { id: 14, nombre: "Chaqueta Polar Dama", categoria: "Ropa y Prendas", precio: 145 },
+            { id: 15, nombre: "Chaleco Polar Unisex", categoria: "Ropa y Prendas", precio: 110 },
+            { id: 16, nombre: "Collar Elegante Finart", categoria: "Ropa y Prendas", precio: 85 },
+            { id: 17, nombre: "Aretes Dorados Finart", categoria: "Ropa y Prendas", precio: 65 },
+            { id: 18, nombre: "Choker Ajustable de Moda", categoria: "Ropa y Prendas", precio: 50 }
         ];
 
-        // 1. Obtener productos de localStorage o usar la lista inicial
         let productos = JSON.parse(localStorage.getItem('vyq_productos')) || productosIniciales;
 
         const tablaBody = document.getElementById('tabla-inventario');
         const totalElem = document.getElementById('total-productos');
         const formProducto = document.getElementById('form-producto');
 
-        // 2. Función para renderizar la tabla
         function renderizarTabla() {
             tablaBody.innerHTML = '';
             productos.forEach((prod, index) => {
@@ -141,21 +148,31 @@
                     <td>#${String(index + 1).padStart(2, '0')}</td>
                     <td>${prod.nombre}</td>
                     <td>${prod.categoria}</td>
-                    <td>Bs. ${prod.precio}</td>
+                    <td>Bs. <input type="number" id="precio-${index}" value="${prod.precio}" class="input-precio" min="1"></td>
                     <td>
+                        <button class="btn-guardar" onclick="actualizarPrecio(${index})">Guardar Precio</button>
                         <button class="btn-eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
                     </td>
                 `;
                 tablaBody.appendChild(tr);
             });
-
-            // Guardar cambios en el almacenamiento local del navegador
             localStorage.setItem('vyq_productos', JSON.stringify(productos));
-            // Actualizar total
             totalElem.textContent = productos.length;
         }
 
-        // 3. Agregar nuevo producto
+        // Modificar precio en tiempo real
+        window.actualizarPrecio = function(index) {
+            const nuevoPrecio = Number(document.getElementById(`precio-${index}`).value);
+            if (nuevoPrecio <= 0 || isNaN(nuevoPrecio)) {
+                alert("Por favor ingresa un precio válido.");
+                return;
+            }
+            productos[index].precio = nuevoPrecio;
+            localStorage.setItem('vyq_productos', JSON.stringify(productos));
+            alert(`¡Precio actualizado con éxito para "${productos[index].nombre}" a Bs. ${nuevoPrecio}!`);
+            renderizarTabla();
+        };
+
         formProducto.addEventListener('submit', (e) => {
             e.preventDefault();
             const nombre = document.getElementById('nombre-prod').value;
@@ -165,17 +182,16 @@
             productos.push({ id: Date.now(), nombre, categoria, precio });
             renderizarTabla();
             formProducto.reset();
+            alert("¡Producto agregado con éxito!");
         });
 
-        // 4. Eliminar producto
-        function eliminarProducto(index) {
+        window.eliminarProducto = function(index) {
             if (confirm(`¿Estás seguro de eliminar "${productos[index].nombre}"?`)) {
                 productos.splice(index, 1);
                 renderizarTabla();
             }
-        }
+        };
 
-        // Cargar tabla al iniciar la página
         renderizarTabla();
     </script>
 </body>
