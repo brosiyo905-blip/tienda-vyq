@@ -22,7 +22,6 @@
         nav { background-color: var(--gris-oscuro); display: flex; justify-content: center; gap: 20px; padding: 12px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; align-items: center; }
         nav a { color: #ffffff; text-decoration: none; font-weight: 600; }
         nav a:hover { color: var(--dorado); }
-        .nav-admin-link { color: var(--dorado) !important; border: 1px solid var(--dorado); padding: 5px 10px; border-radius: 4px; }
         .nav-carrito-btn { background-color: #25d366; color: #fff !important; padding: 6px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; border: none; font-size: 0.95rem; }
         .nav-carrito-btn:hover { background-color: #20ba5a; }
 
@@ -65,7 +64,6 @@
     <nav>
         <a href="#perfumeria">Perfumería</a>
         <a href="#ropa">Ropa y Prendas</a>
-        <a href="admin.html" target="_blank" class="nav-admin-link">⚙️ Panel Admin</a>
         <button type="button" class="nav-carrito-btn" onclick="abrirModal()">🛒 Ver Carrito (<span id="contador-nav">0</span>)</button>
     </nav>
 
@@ -113,7 +111,7 @@
     </footer>
 
     <script>
-        // LISTA INICIAL DE PRODUCTOS (Coincide exactamente con tus imágenes)
+        // LISTA DE PRODUCTOS CON RUTAS DE IMÁGENES CORREGIDAS
         var productosIniciales = [
             { id: 1, nombre: "Expression Sens", categoria: "Perfumería", marca: "Ésika", precio: 145, desc: "Aroma Chipre floral elegante. Contenido: 50 ml.", img: "img/Imagen 2.jpg" },
             { id: 2, nombre: "Expression Magic", categoria: "Perfumería", marca: "Ésika", precio: 145, desc: "Aroma floral frutal cautivador. Contenido: 50 ml.", img: "img/Imagen 20.jpg" },
@@ -135,7 +133,6 @@
             { id: 18, nombre: "Chamarra Acolchada Geométrica", categoria: "Ropa", marca: "ANG", precio: 185, desc: "Diseño moderno con cuello alto y patrones exclusivos.", img: "img/Imagen 6.jpg" }
         ];
 
-        // Cargar productos desde localStorage o usar los iniciales
         function obtenerProductos() {
             var guardados = localStorage.getItem("vyq_productos");
             if (guardados) {
@@ -239,7 +236,6 @@
             cerrarModal();
         }
 
-        // Ejecutar al cargar la página
         window.onload = function() {
             renderizarTienda();
         };
