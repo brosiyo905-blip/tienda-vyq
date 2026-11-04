@@ -31,7 +31,9 @@
         .panel-seccion { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid var(--borde); box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .panel-seccion h3 { margin-bottom: 15px; color: var(--negro); border-bottom: 2px solid var(--dorado); padding-bottom: 5px; display: inline-block; }
 
-        .btn-accion { background-color: var(--dorado); color: var(--negro); border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 0.9rem; margin-bottom: 15px; }
+        .form-agregar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; background: #f1f1f1; padding: 15px; border-radius: 5px; }
+        .form-agregar input, .form-agregar select { padding: 8px 12px; border: 1px solid var(--borde); border-radius: 4px; font-size: 0.9rem; flex: 1; min-width: 150px; }
+        .btn-accion { background-color: var(--dorado); color: var(--negro); border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 0.9rem; }
         .btn-accion:hover { background-color: #f3e5ab; }
 
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
@@ -39,9 +41,7 @@
         th { background-color: var(--negro); color: var(--dorado); }
         tr:hover { background-color: #f9f9f9; }
 
-        .btn-editar { background-color: #ffc107; color: #000; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .btn-eliminar { background-color: #dc3545; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .btn-editar:hover { background-color: #e0a800; }
         .btn-eliminar:hover { background-color: #c82333; }
 
         footer { background-color: var(--negro); color: #ffffff; text-align: center; padding: 20px; margin-top: 50px; border-top: 3px solid var(--dorado); }
@@ -59,7 +59,7 @@
         <div class="tarjetas-stats">
             <div class="card-stat">
                 <h4>Total Productos</h4>
-                <p id="total-productos">13</p>
+                <p id="total-productos">0</p>
             </div>
             <div class="card-stat">
                 <h4>Categorías Activas</h4>
@@ -74,9 +74,19 @@
         <!-- GESTIÓN DE CATÁLOGO -->
         <div class="panel-seccion">
             <h3>Gestión de Inventario y Productos</h3>
-            <div>
-                <button type="button" class="btn-accion" onclick="alert('➕ Función de agregar nuevo producto conectada al sistema de base de datos local.')">+ Agregar Nuevo Producto</button>
-            </div>
+            
+            <!-- FORMULARIO PARA AGREGAR NUEVOS PRODUCTOS -->
+            <form id="form-producto" class="form-agregar">
+                <input type="text" id="nombre-prod" placeholder="Nombre del producto" required>
+                <select id="categoria-prod" required>
+                    <option value="">Seleccionar Categoría</option>
+                    <option value="Perfumería">Perfumería</option>
+                    <option value="Ropa y Prendas">Ropa y Prendas</option>
+                    <option value="Accesorios">Accesorios</option>
+                </select>
+                <input type="number" id="precio-prod" placeholder="Precio (Bs.)" min="1" required>
+                <button type="submit" class="btn-accion">+ Agregar Producto</button>
+            </form>
 
             <table>
                 <thead>
@@ -89,106 +99,7 @@
                     </tr>
                 </thead>
                 <tbody id="tabla-inventario">
-                    <tr>
-                        <td>#01</td>
-                        <td>Expression Sens (Ésika)</td>
-                        <td>Perfumería</td>
-                        <td>Bs. 145</td>
-                        <td>
-                            <button class="btn-editar" onclick="alert('✏️ Editando producto: Expression Sens')">Editar</button>
-                            <button class="btn-eliminar" onclick="alert('🗑️ Producto eliminado del registro temporal.')">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#02</td>
-                        <td>Expression Magic (Ésika)</td>
-                        <td>Perfumería</td>
-                        <td>Bs. 145</td>
-                        <td>
-                            <button class="btn-editar" onclick="alert('✏️ Editando producto: Expression Magic')">Editar</button>
-                            <button class="btn-eliminar" onclick="alert('🗑️ Producto eliminado del registro temporal.')">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#03</td>
-                        <td>Sweet Black Intense (Cyzone)</td>
-                        <td>Perfumería</td>
-                        <td>Bs. 115</td>
-                        <td>
-                            <button class="btn-editar" onclick="alert('✏️ Editando producto: Sweet Black Intense')">Editar</button>
-                            <button class="btn-eliminar" onclick="alert('🗑️ Producto eliminado del registro temporal.')">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#04</td>
-                        <td>All Black (Cyzone)</td>
-                        <td>Perfumería</td>
-                        <td>Bs. 115</td>
-                        <td>
-                            <button class="btn-editar" onclick="alert('✏️ Editando producto: All Black')">Editar</button>
-                            <button class="btn-eliminar" onclick="alert('🗑️ Producto eliminado del registro temporal.')">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#05</td>
-                        <td>Nitro Air (Cyzone)</td>
-                        <td>Perfumería</td>
-                        <td>Bs. 115</td>
-                        <td>
-                            <button class="btn-editar" onclick="alert('✏️ Editando producto: Nitro Air')">Editar</button>
-                            <button class="btn-eliminar" onclick="alert('🗑️ Producto eliminado del registro temporal.')">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#06</td>
-                        <td>Sudadera Nike Clásica Naranja</td>
-                        <td>Ropa y Prendas</td>
-                        <td>Bs. 150</td>
-                        <td>
-                            <button class="btn-editar" onclick="alert('✏️ Editando producto: Sudadera Nike Naranja')">Editar</button>
-                            <button class="btn-eliminar" onclick="alert('🗑️ Producto eliminado del registro temporal.')">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#07</td>
-                        <td>Sudadera Nike Fayetteville Tech</td>
-                        <td>Ropa y Prendas</td>
-                        <td>Bs. 150</td>
-                        <td>
-                            <button class="btn-editar" onclick="alert('✏️ Editando producto: Sudadera Nike Fayetteville Tech')">Editar</button>
-                            <button class="btn-eliminar" onclick="alert('🗑️ Producto eliminado del registro temporal.')">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#08</td>
-                        <td>Sweater Tommy Hilfiger</td>
-                        <td>Ropa y Prendas</td>
-                        <td>Bs. 160</td>
-                        <td>
-                            <button class="btn-editar" onclick="alert('✏️ Editando producto: Sweater Tommy Hilfiger')">Editar</button>
-                            <button class="btn-eliminar" onclick="alert('🗑️ Producto eliminado del registro temporal.')">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#09</td>
-                        <td>Chaqueta Jordan Basketball</td>
-                        <td>Ropa y Prendas</td>
-                        <td>Bs. 180</td>
-                        <td>
-                            <button class="btn-editar" onclick="alert('✏️ Editando producto: Chaqueta Jordan')">Editar</button>
-                            <button class="btn-eliminar" onclick="alert('🗑️ Producto eliminado del registro temporal.')">Eliminar</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#10</td>
-                        <td>Chamarra Gamuza con Forro Polar</td>
-                        <td>Ropa y Prendas</td>
-                        <td>Bs. 195</td>
-                        <td>
-                            <button class="btn-editar" onclick="alert('✏️ Editando producto: Chamarra Gamuza')">Editar</button>
-                            <button class="btn-eliminar" onclick="alert('🗑️ Producto eliminado del registro temporal.')">Eliminar</button>
-                        </td>
-                    </tr>
+                    <!-- Los productos se cargan dinámicamente desde JavaScript -->
                 </tbody>
             </table>
         </div>
@@ -198,5 +109,74 @@
         <p>&copy; 2026 TIENDA VYQ - Módulo de Administración • Proyecto de Grado</p>
     </footer>
 
+    <!-- LÓGICA JAVASCRIPT DEL PANEL -->
+    <script>
+        // Productos por defecto si la base de datos local está vacía
+        const productosIniciales = [
+            { id: 1, nombre: "Expression Sens (Ésika)", categoria: "Perfumería", precio: 145 },
+            { id: 2, nombre: "Expression Magic (Ésika)", categoria: "Perfumería", precio: 145 },
+            { id: 3, nombre: "Sweet Black Intense (Cyzone)", categoria: "Perfumería", precio: 115 },
+            { id: 4, nombre: "All Black (Cyzone)", categoria: "Perfumería", precio: 115 },
+            { id: 5, nombre: "Nitro Air (Cyzone)", categoria: "Perfumería", precio: 115 },
+            { id: 6, nombre: "Sudadera Nike Clásica Naranja", categoria: "Ropa y Prendas", precio: 150 },
+            { id: 7, nombre: "Sudadera Nike Fayetteville Tech", categoria: "Ropa y Prendas", precio: 150 },
+            { id: 8, nombre: "Sweater Tommy Hilfiger", categoria: "Ropa y Prendas", precio: 160 },
+            { id: 9, nombre: "Chaqueta Jordan Basketball", categoria: "Ropa y Prendas", precio: 180 },
+            { id: 10, nombre: "Chamarra Gamuza con Forro Polar", categoria: "Ropa y Prendas", precio: 195 }
+        ];
+
+        // 1. Obtener productos de localStorage o usar la lista inicial
+        let productos = JSON.parse(localStorage.getItem('vyq_productos')) || productosIniciales;
+
+        const tablaBody = document.getElementById('tabla-inventario');
+        const totalElem = document.getElementById('total-productos');
+        const formProducto = document.getElementById('form-producto');
+
+        // 2. Función para renderizar la tabla
+        function renderizarTabla() {
+            tablaBody.innerHTML = '';
+            productos.forEach((prod, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>#${String(index + 1).padStart(2, '0')}</td>
+                    <td>${prod.nombre}</td>
+                    <td>${prod.categoria}</td>
+                    <td>Bs. ${prod.precio}</td>
+                    <td>
+                        <button class="btn-eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
+                    </td>
+                `;
+                tablaBody.appendChild(tr);
+            });
+
+            // Guardar cambios en el almacenamiento local del navegador
+            localStorage.setItem('vyq_productos', JSON.stringify(productos));
+            // Actualizar total
+            totalElem.textContent = productos.length;
+        }
+
+        // 3. Agregar nuevo producto
+        formProducto.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre-prod').value;
+            const categoria = document.getElementById('categoria-prod').value;
+            const precio = Number(document.getElementById('precio-prod').value);
+
+            productos.push({ id: Date.now(), nombre, categoria, precio });
+            renderizarTabla();
+            formProducto.reset();
+        });
+
+        // 4. Eliminar producto
+        function eliminarProducto(index) {
+            if (confirm(`¿Estás seguro de eliminar "${productos[index].nombre}"?`)) {
+                productos.splice(index, 1);
+                renderizarTabla();
+            }
+        }
+
+        // Cargar tabla al iniciar la página
+        renderizarTabla();
+    </script>
 </body>
 </html>
