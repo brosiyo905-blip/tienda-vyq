@@ -401,6 +401,102 @@
     document.getElementById("checkoutDone").style.display = "block";
   };
 </script>
+        <!-- ========================================== -->
+    <!-- MODAL DE CHECKOUT / ENVÍO DE DATOS (WHATSAPP) -->
+    <!-- ========================================== -->
+    <div class="overlay" id="checkoutOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:50; align-items:center; justify-content:center;">
+      <div class="sheet" style="background:#1b1e29; padding:20px; border-radius:12px; width:90%; max-width:400px; color:#fff; font-family:sans-serif;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+          <h3 style="margin:0; color:#d4af37;">Datos de Envío</h3>
+          <button onclick="document.getElementById('checkoutOverlay').style.display='none'" style="background:none; border:none; color:#fff; font-size:1.2rem; cursor:pointer;">✕</button>
+        </div>
+        
+        <!-- Formulario de datos -->
+        <div id="checkoutForm">
+          <p style="font-size:0.8rem; color:#aaa; margin-bottom:10px;">Estos datos se enviarán junto a tu pedido por WhatsApp.</p>
+          
+          <label style="font-size:0.8rem; color:#aaa; display:block; margin-bottom:4px;">Nombre completo</label>
+          <input type="text" id="cName" placeholder="Tu nombre" style="width:100%; padding:8px; margin-bottom:10px; background:#12141c; border:1px solid #323748; color:#fff; border-radius:6px; box-sizing:border-box;">
+          
+          <label style="font-size:0.8rem; color:#aaa; display:block; margin-bottom:4px;">Ciudad</label>
+          <input type="text" id="cCity" placeholder="Ej. La Paz / El Alto" style="width:100%; padding:8px; margin-bottom:10px; background:#12141c; border:1px solid #323748; color:#fff; border-radius:6px; box-sizing:border-box;">
+          
+          <label style="font-size:0.8rem; color:#aaa; display:block; margin-bottom:4px;">Dirección de entrega</label>
+          <textarea id="cAddress" placeholder="Calle, zona, referencia..." style="width:100%; padding:8px; margin-bottom:15px; background:#12141c; border:1px solid #323748; color:#fff; border-radius:6px; height:60px; box-sizing:border-box; resize:vertical;"></textarea>
+          
+          <button id="confirmPurchase" style="width:100%; background:#d4af37; color:#121212; border:none; padding:10px; font-weight:bold; border-radius:6px; cursor:pointer;">Confirmar y Generar Pedido</button>
+        </div>
+
+        <!-- Botón final para enviar por WhatsApp -->
+        <div id="checkoutDone" style="display:none; text-align:center; padding-top:10px;">
+          <p style="font-size:0.85rem; color:#aaa; margin-bottom:15px;">¡Todo listo! Toca el botón para enviar tu pedido directamente al WhatsApp de la tienda:</p>
+          <a id="waLink" href="#" target="_blank" rel="noopener" style="display:block; background:#25d366; color:#fff; text-decoration:none; text-align:center; padding:12px; font-weight:bold; border-radius:6px;">Enviar pedido por WhatsApp ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- LÓGICA DE JAVASCRIPT PARA EL PEDIDO Y WHATSAPP -->
+    <!-- ========================================== -->
+    <script>
+      var WHATSAPP_NUMBER = "59163062304"; // Tu número exacto
+
+      function abrirCheckout() {
+        if (typeof cart !== 'undefined' && cart.length === 0) {
+          alert("Tu carrito está vacío.");
+          return;
+        }
+        document.getElementById('checkoutForm').style.display = 'block';
+        document.getElementById('checkoutDone').style.display = 'none';
+        document.getElementById('checkoutOverlay').style.display = 'flex';
+      }
+
+      document.getElementById("confirmPurchase").onclick = function() {
+        var name = document.getElementById("cName").value.trim();
+        var city = document.getElementById("cCity").value.trim();
+        var address = document.getElementById("cAddress").value.trim();
+
+        if (!name || !city || !address) {
+          alert("Por favor completa tu nombre, ciudad y dirección.");
+          return;
+        }
+
+        var lines = [];
+        var total = 0;
+        
+        // Obtiene productos actualizados del localStorage o de la variable global
+        var listaProductos = JSON.parse(localStorage.getItem('vyq_productos')) || (typeof products !== 'undefined' ? products : []);
+
+        if (typeof cart !== 'undefined') {
+          cart.forEach(function(item) {
+            var p = listaProductos.find(function(x) { return x.id === item.id || x.id == item.id; });
+            if (!p) return;
+            var sub = p.price * item.qty;
+            total += sub;
+            lines.push("• " + p.name + " (x" + item.qty + ") — Bs. " + sub);
+          });
+        }
+
+        var msgText = "¡Hola TIENDA VYQ! 🛍️ Quiero realizar el siguiente pedido:\n\n" +
+          lines.join("\n") + "\n\n" +
+          "💰 *Total a pagar:* Bs. " + total + "\n\n" +
+          "👤 *Cliente:* " + name + "\n" +
+          "🏙️ *Ciudad:* " + city + "\n" +
+          "📍 *Dirección:* " + address;
+
+        var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msgText);
+        
+        var link = document.getElementById("waLink");
+        link.href = url;
+
+        document.getElementById("checkoutForm").style.display = "none";
+        document.getElementById("checkoutDone").style.display = "block";
+      };
+    </script>
+
+</body>
+</html>
+
     
 </body>
     </html>
