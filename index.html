@@ -138,9 +138,7 @@
                 localStorage.setItem("vyq_productos_v4", JSON.stringify(productosBase));
                 return productosBase;
             }
-            
             var prodsGuardados = JSON.parse(guardados);
-            // Sincronizar y rellenar cualquier campo faltante para evitar "undefined"
             for (var i = 0; i < prodsGuardados.length; i++) {
                 for (var j = 0; j < productosBase.length; j++) {
                     if (prodsGuardados[i].id === productosBase[j].id) {
