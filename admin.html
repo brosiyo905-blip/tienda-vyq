@@ -3,216 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración Avanzado | TIENDA VYQ</title>
+    <title>Panel de Administración | TIENDA VYQ</title>
     <style>
-        /* ==========================================================================
-           1. VARIABLES GLOBALES Y ESTILOS BASE (DARK GOLD THEME)
-           ========================================================================== */
         :root {
             --dorado: #d4af37;
-            --dorado-hover: #f3e5ab;
-            --dorado-oscuro: #997a15;
-            --negro: #0f1015;
-            --negro-tarjeta: #181a20;
-            --gris-oscuro: #222630;
-            --gris-borde: #323748;
-            --texto-blanco: #ffffff;
-            --texto-secundario: #a0a5b5;
-            --verde-exito: #28a745;
-            --rojo-peligro: #dc3545;
-            --azul-info: #17a2b8;
-            --fuente-principal: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --negro: #121212;
+            --gris-oscuro: #1e1e1e;
+            --fondo: #f8f9fa;
+            --texto: #212529;
+            --borde: #e0e0e0;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--fondo); color: var(--texto); line-height: 1.6; }
+        
+        header { background-color: var(--negro); color: var(--dorado); padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--dorado); }
+        header h1 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
+        header a { color: #fff; text-decoration: none; font-size: 0.9rem; background: var(--gris-oscuro); padding: 8px 15px; border-radius: 5px; border: 1px solid var(--dorado); }
+        header a:hover { background: var(--dorado); color: var(--negro); }
+
+        .contenedor { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
+
+        .tarjetas-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card-stat { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid var(--borde); box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 5px solid var(--dorado); }
+        .card-stat h4 { font-size: 0.85rem; color: #666; text-transform: uppercase; margin-bottom: 5px; }
+        .card-stat p { font-size: 1.8rem; font-weight: bold; color: var(--negro); }
+
+        .panel-seccion { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid var(--borde); box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .panel-seccion h3 { margin-bottom: 15px; color: var(--negro); border-bottom: 2px solid var(--dorado); padding-bottom: 5px; display: inline-block; }
+
+        .btn-accion { background-color: var(--dorado); color: var(--negro); border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 0.9rem; margin-bottom: 15px; }
+        .btn-accion:hover { background-color: #f3e5ab; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--borde); }
+        th { background-color: var(--negro); color: var(--dorado); }
+        tr:hover { background-color: #f9f9f9; }
+
+        input[type="number"] { width: 90px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-weight: bold; }
+        .btn-guardar { background-color: #28a745; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-guardar:hover { background-color: #218838; }
+        .btn-eliminar { background-color: #dc3545; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-eliminar:hover { background-color: #c82333; }
+
+        footer { background-color: var(--negro); color: #ffffff; text-align: center; padding: 20px; margin-top: 50px; border-top: 3px solid var(--dorado); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>TIENDA VYQ | Panel Admin</h1>
+        <a href="index.html" target="_blank">Ver Tienda Pública ↗</a>
+    </header>
+
+    <div class="contenedor">
+        <!-- TARJETAS DE ESTADÍSTICAS -->
+        <div class="tarjetas-stats">
+            <div class="card-stat">
+                <h4>Total Productos</h4>
+                <p id="stat-total">0</p>
+            </div>
+            <div class="card-stat">
+                <h4>Inventario Activo</h4>
+                <p>2 Categorías</p>
+            </div>
+            <div class="card-stat">
+                <h4>Estado del Sistema</h4>
+                <p style="color: #28a745; font-size: 1.4rem; margin-top: 5px;">🟢 Conectado</p>
+            </div>
+        </div>
+
+        <!-- GESTIÓN DE CATÁLOGO -->
+        <div class="panel-seccion">
+            <h3>Gestión Dinámica de Precios e Inventario</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Modifica el precio de cualquier producto directamente en la tabla y presiona <b>Guardar</b> para actualizarlo en la tienda en tiempo real.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del Producto</th>
+                        <th>Categoría</th>
+                        <th>Precio (Bs.)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-admin">
+                    <!-- Los datos se cargan dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 TIENDA VYQ - Módulo de Administración • Proyecto de Grado</p>
+    </footer>
+
+    <script>
+        // Lista inicial idéntica a la del index
+        var productosIniciales = [
+            { id: 1, nombre: "Expression Sens", categoria: "Perfumería", marca: "Ésika", precio: 145, desc: "Aroma Chipre floral elegante. Contenido: 50 ml.", img: "img/Imagen 2.jpg" },
+            { id: 2, nombre: "Expression Magic", categoria: "Perfumería", marca: "Ésika", precio: 145, desc: "Aroma floral frutal cautivador. Contenido: 50 ml.", img: "img/Imagen 20.jpg" },
+            { id: 3, nombre: "Sweet Black Intense", categoria: "Perfumería", marca: "Cyzone", precio: 115, desc: "Aroma dulce intenso juvenil. Contenido: 50 ml.", img: "img/Imagen 15.jpg" },
+            { id: 4, nombre: "All Black", categoria: "Perfumería", marca: "Cyzone", precio: 115, desc: "Aroma oriental maderoso. Contenido: 90 ml.", img: "img/Imagen 3.jpg" },
+            { id: 5, nombre: "Nitro Air", categoria: "Perfumería", marca: "Cyzone", precio: 115, desc: "Aroma herbal fresco con lavanda. Contenido: 100 ml.", img: "img/Imagen 11.jpg" },
+            { id: 6, nombre: "Sudadera Nike Clásica Naranja", categoria: "Ropa", marca: "Nike", precio: 150, desc: "Prenda deportiva con swoosh bordado. Talla L.", img: "img/Imagen 13.jpg" },
+            { id: 7, nombre: "Sudadera Nike Fayetteville Tech", categoria: "Ropa", marca: "Nike", precio: 150, desc: "Estilo deportivo universitario premium.", img: "img/Imagen 23.jpg" },
+            { id: 8, nombre: "Sweater Tommy Hilfiger", categoria: "Ropa", marca: "Tommy Hilfiger", precio: 160, desc: "Diseño casual elegante con bordado distintivo.", img: "img/Imagen 16.jpg" },
+            { id: 9, nombre: "Chaqueta Deportiva Jordan Basketball", categoria: "Ropa", marca: "Jordan", precio: 180, desc: "Chaqueta azul marino con detalles blancos.", img: "img/Imagen 7.jpg" },
+            { id: 10, nombre: "Chamarra Gamuza con Forro Polar", categoria: "Ropa", marca: "ANG", precio: 195, desc: "Abrigo marrón tipo gamuza con cuello de corderito.", img: "img/Imagen 19.jpg" },
+            { id: 11, nombre: "Sudadera Roja de Corazones", categoria: "Ropa", marca: "ANG / Urbano", precio: 130, desc: "Diseño casual rojo con detalles de corazones blancos.", img: "img/Imagen 4.jpg" },
+            { id: 12, nombre: "Sudadera Roja Stardust", categoria: "Ropa", marca: "ANG / Urbano", precio: 130, desc: "Estilo urbano con estampado bordado frontal.", img: "img/Imagen 5.jpg" },
+            { id: 13, nombre: "Sudadera Gris Garris Evans", categoria: "Ropa", marca: "ANG / Urbano", precio: 135, desc: "Estilo clásico en color gris con estampado corporativo.", img: "img/Imagen 22.jpg" },
+            { id: 14, nombre: "Sudadera Negra Lisa", categoria: "Ropa", marca: "ANG / Urbano", precio: 140, desc: "Estilo minimalista en color negro.", img: "img/Imagen 9.jpg" },
+            { id: 15, nombre: "Sudadera Negra con Bolsillo Canguro", categoria: "Ropa", marca: "ANG / Urbano", precio: 140, desc: "Diseño urbano negro con bolsillo frontal.", img: "img/Imagen 10.jpg" },
+            { id: 16, nombre: "Sudadera Azul Pack National Team", categoria: "Ropa", marca: "ANG / Urbano", precio: 145, desc: "Estilo deportivo con estampado frontal y estrellas.", img: "img/Imagen 12.jpg" },
+            { id: 17, nombre: "Sudadera Verde Sláinte", categoria: "Ropa", marca: "ANG / Urbano", precio: 140, desc: "Estilo verde oscuro con trébol de la suerte.", img: "img/Imagen 1.jpg" },
+            { id: 18, nombre: "Chamarra Acolchada Geométrica", categoria: "Ropa", marca: "ANG", precio: 185, desc: "Diseño moderno con cuello alto y patrones exclusivos.", img: "img/Imagen 6.jpg" }
+        ];
+
+        function obtenerProductosAdmin() {
+            var guardados = localStorage.getItem("vyq_productos");
+            if (guardados) {
+                return JSON.parse(guardados);
+            } else {
+                localStorage.setItem("vyq_productos", JSON.stringify(productosIniciales));
+                return productosIniciales;
+            }
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: var(--fuente-principal);
+        function renderizarAdmin() {
+            var prods = obtenerProductosAdmin();
+            var htmlTabla = "";
+            
+            document.getElementById("stat-total").textContent = prods.length;
+
+            for (var i = 0; i < prods.length; i++) {
+                var p = prods[i];
+                htmlTabla += "<tr>" +
+                    "<td>#" + p.id + "</td>" +
+                    "<td><b>" + p.nombre + "</b><br><small style='color:#666;'>" + p.marca + "</small></td>" +
+                    "<td>" + p.categoria + "</td>" +
+                    "<td><input type='number' id='precio-" + p.id + "' value='" + p.precio + "'> Bs.</td>" +
+                    "<td>" +
+                        "<button class='btn-guardar' onclick='actualizarPrecio(" + p.id + ")'>Guardar</button> " +
+                        "<button class='btn-eliminar' onclick='eliminarProducto(" + p.id + ")'>Eliminar</button>" +
+                    "</td>" +
+                "</tr>";
+            }
+            document.getElementById("tabla-admin").innerHTML = htmlTabla;
         }
 
-        body {
-            background-color: var(--negro);
-            color: var(--texto-blanco);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+        function actualizarPrecio(id) {
+            var nuevoPrecioInput = document.getElementById("precio-" + id);
+            var nuevoPrecio = parseFloat(nuevoPrecioInput.value);
+
+            if (isNaN(nuevoPrecio) || nuevoPrecio <= 0) {
+                alert("⚠️ Ingresa un precio válido en Bolivianos.");
+                return;
+            }
+
+            var prods = obtenerProductosAdmin();
+            for (var i = 0; i < prods.length; i++) {
+                if (prods[i].id === id) {
+                    prods[i].precio = nuevoPrecio;
+                    break;
+                }
+            }
+
+            localStorage.setItem("vyq_productos", JSON.stringify(prods));
+            alert("✅ ¡Precio actualizado con éxito! Ya se refleja en la tienda pública.");
+            renderizarAdmin();
         }
 
-        /* ==========================================================================
-           2. ENCABEZADO Y NAVEGACIÓN
-           ========================================================================== */
-        header {
-            background-color: var(--negro-tarjeta);
-            border-bottom: 3px solid var(--dorado);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        function eliminarProducto(id) {
+            if (!confirm("¿Estás seguro de eliminar este producto del inventario?")) return;
+
+            var prods = obtenerProductosAdmin();
+            var nuevosProds = [];
+            for (var i = 0; i < prods.length; i++) {
+                if (prods[i].id !== id) {
+                    nuevosProds.push(prods[i]);
+                }
+            }
+
+            localStorage.setItem("vyq_productos", JSON.stringify(nuevosProds));
+            alert("🗑️ Producto eliminado correctamente.");
+            renderizarAdmin();
         }
 
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand-logo {
-            background: var(--dorado);
-            color: var(--negro);
-            font-weight: 900;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-        }
-
-        .brand-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--texto-blanco);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .btn-link-tienda {
-            color: var(--dorado);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 8px 16px;
-            border: 1px solid var(--dorado);
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-link-tienda:hover {
-            background-color: var(--dorado);
-            color: var(--negro);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
-        }
-
-        /* ==========================================================================
-           3. ESTRUCTURA PRINCIPAL Y CONTENEDORES
-           ========================================================================== */
-        .admin-wrapper {
-            max-width: 1300px;
-            margin: 25px auto;
-            padding: 0 20px;
-            width: 100%;
-            flex: 1;
-        }
-
-        /* Dashboard Metrics */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .metric-card {
-            background-color: var(--negro-tarjeta);
-            border: 1px solid var(--gris-borde);
-            border-radius: 10px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .metric-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background-color: var(--dorado);
-        }
-
-        .metric-info h4 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--texto-secundario);
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
-        }
-
-        .metric-info p {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--texto-blanco);
-        }
-
-        .metric-icon {
-            font-size: 2rem;
-            opacity: 0.3;
-            color: var(--dorado);
-        }
-
-        /* Action Toolbar */
-        .toolbar-panel {
-            background-color: var(--negro-tarjeta);
-            border: 1px solid var(--gris-borde);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .search-box {
-            display: flex;
-            gap: 10px;
-            flex: 1;
-            min-width: 280px;
-        }
-
-        .form-control {
-            background-color: var(--gris-oscuro);
-            border: 1px solid var(--gris-borde);
-            color: var(--texto-blanco);
-            padding: 10px 14px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .form-control:focus {
-            border-color: var(--dorado);
-        }
-
-        .btn {
-            padding: 10px 18px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.88rem;
-            cursor: pointer;
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-primary { background-color: var(--dorado); color: var(--negro); }
-        .btn-primary:
+        window.onload = function() {
+            renderizarAdmin();
+        };
+    </script>
+</body>
+</html>
