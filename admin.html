@@ -3,69 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADMIN | TIENDA VYQ</title>
+<title>Panel de Administración | TIENDA VYQ</title>
 
 <style>
 :root {
     --dorado: #d4af37;
-    --negro: #121212;
-    --gris: #1e1e1e;
-    --fondo: #f4f5f7;
+    --dorado-hover: #f3e5ab;
+    --negro: #0f1015;
+    --tarjeta: #181a20;
+    --gris: #222630;
+    --borde: #323748;
+    --blanco: #fff;
+    --secundario: #a0a5b5;
+    --verde: #28a745;
+    --rojo: #dc3545;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: var(--fondo);
-    color: #222;
+    background: var(--negro);
+    color: var(--blanco);
+    min-height: 100vh;
 }
 
 header {
-    background: var(--negro);
-    color: var(--dorado);
-    text-align: center;
-    padding: 25px;
-    border-bottom: 4px solid var(--dorado);
+    background: var(--tarjeta);
+    border-bottom: 3px solid var(--dorado);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    background: var(--dorado);
+    color: #111;
+    padding: 8px 13px;
+    font-weight: 900;
+    border-radius: 5px;
 }
 
 header h1 {
-    letter-spacing: 3px;
+    font-size: 20px;
+    display: inline-block;
+    margin-left: 10px;
 }
 
-header p {
-    color: white;
-    margin-top: 5px;
+header a {
+    color: var(--dorado);
+    text-decoration: none;
+    border: 1px solid var(--dorado);
+    padding: 9px 15px;
+    border-radius: 5px;
 }
 
 main {
-    max-width: 1100px;
+    max-width: 1250px;
     margin: 30px auto;
     padding: 15px;
 }
 
-.panel {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    margin-bottom: 25px;
-    box-shadow: 0 3px 12px #00000012;
+.titulo {
+    color: var(--dorado);
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
-h2 {
+.metricas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.tarjeta {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-left: 4px solid var(--dorado);
+    padding: 22px;
+    border-radius: 9px;
+}
+
+.tarjeta h3 {
+    color: var(--secundario);
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.tarjeta p {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.panel {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.panel h2 {
+    color: var(--dorado);
     margin-bottom: 20px;
-    border-left: 5px solid var(--dorado);
-    padding-left: 10px;
+    border-bottom: 1px solid var(--borde);
+    padding-bottom: 12px;
 }
 
 .formulario {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(2,1fr);
+    gap: 17px;
 }
 
 .campo {
@@ -74,72 +130,89 @@ h2 {
 }
 
 .campo label {
+    margin-bottom: 7px;
+    color: var(--secundario);
     font-weight: bold;
-    margin-bottom: 6px;
+    font-size: 14px;
 }
 
-.campo input,
-.campo select,
-.campo textarea {
+input, select, textarea {
+    background: var(--gris);
+    border: 1px solid var(--borde);
+    color: white;
     padding: 12px;
-    border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 15px;
+    outline: none;
+    width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--dorado);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 75px;
 }
 
 .completo {
-    grid-column: 1 / -1;
+    grid-column: 1/-1;
 }
 
-button {
+.botones {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 11px 17px;
     border: none;
-    padding: 12px 18px;
-    border-radius: 6px;
-    cursor: pointer;
+    border-radius: 5px;
     font-weight: bold;
+    cursor: pointer;
 }
 
-.guardar {
+.dorado {
     background: var(--dorado);
-    color: black;
+    color: #111;
 }
 
-.cancelar {
-    background: #555;
+.dorado:hover {
+    background: var(--dorado-hover);
+}
+
+.rojo {
+    background: var(--rojo);
     color: white;
 }
 
-.editar {
-    background: #d4af37;
-    color: black;
-    margin: 3px;
-}
-
-.eliminar {
-    background: #c62828;
+.gris {
+    background: #454b59;
     color: white;
-    margin: 3px;
 }
 
-.tabla-contenedor {
+.tabla {
     overflow-x: auto;
 }
 
 table {
     width: 100%;
+    min-width: 750px;
     border-collapse: collapse;
-    min-width: 650px;
-}
-
-th, td {
-    padding: 13px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
 }
 
 th {
     background: var(--gris);
-    color: white;
+    color: var(--dorado);
+    padding: 14px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid var(--borde);
 }
 
 td img {
@@ -150,23 +223,50 @@ td img {
 }
 
 .precio {
+    color: var(--dorado);
     font-weight: bold;
-    color: #b12704;
+}
+
+.busqueda {
+    margin-bottom: 18px;
+    max-width: 400px;
 }
 
 #mensaje {
     margin-top: 15px;
-    font-weight: bold;
-    color: green;
+    color: #75db91;
 }
 
-@media(max-width:600px) {
+.acciones {
+    display: flex;
+    gap: 7px;
+}
+
+.acciones button {
+    padding: 8px 10px;
+    font-size: 12px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    background: var(--tarjeta);
+    color: var(--secundario);
+    border-top: 2px solid var(--dorado);
+}
+
+@media(max-width:650px) {
     .formulario {
         grid-template-columns: 1fr;
     }
 
     .completo {
         grid-column: auto;
+    }
+
+    header {
+        justify-content: center;
+        text-align: center;
     }
 }
 </style>
@@ -175,15 +275,40 @@ td img {
 <body>
 
 <header>
-    <h1>TIENDA VYQ</h1>
-    <p>Panel de administración</p>
+    <div>
+        <span class="logo">VYQ</span>
+        <h1>PANEL DE ADMINISTRACIÓN</h1>
+    </div>
+
+    <a href="index.html">← VOLVER A LA TIENDA</a>
 </header>
 
 <main>
 
+<h2 class="titulo">Dashboard Administrativo</h2>
+
+<section class="metricas">
+
+    <div class="tarjeta">
+        <h3>TOTAL DE PRODUCTOS</h3>
+        <p id="total-productos">0</p>
+    </div>
+
+    <div class="tarjeta">
+        <h3>PERFUMERÍA</h3>
+        <p id="total-perfumes">0</p>
+    </div>
+
+    <div class="tarjeta">
+        <h3>ROPA Y PRENDAS</h3>
+        <p id="total-ropa">0</p>
+    </div>
+
+</section>
+
 <section class="panel">
 
-<h2 id="titulo-formulario">Añadir nuevo producto</h2>
+<h2 id="titulo-form">Añadir nuevo producto</h2>
 
 <form id="formulario">
 
@@ -191,50 +316,55 @@ td img {
 
 <div class="formulario">
 
-<div class="campo">
-<label>Categoría</label>
-<select id="categoria" required>
-<option value="perfumeria">Perfumería</option>
-<option value="ropa">Ropa y Prendas</option>
-</select>
+    <div class="campo">
+        <label>Categoría</label>
+        <select id="categoria" required>
+            <option value="perfumeria">Perfumería</option>
+            <option value="ropa">Ropa y Prendas</option>
+        </select>
+    </div>
+
+    <div class="campo">
+        <label>Marca</label>
+        <input type="text" id="marca" required>
+    </div>
+
+    <div class="campo completo">
+        <label>Nombre del producto</label>
+        <input type="text" id="nombre" required>
+    </div>
+
+    <div class="campo completo">
+        <label>Descripción</label>
+        <textarea id="descripcion" required></textarea>
+    </div>
+
+    <div class="campo">
+        <label>Precio en bolivianos</label>
+        <input type="number" id="precio"
+        min="0.01" step="0.01" required>
+    </div>
+
+    <div class="campo">
+        <label>Ruta de imagen</label>
+        <input type="text" id="imagen"
+        placeholder="img/producto.jpg">
+    </div>
+
 </div>
 
-<div class="campo">
-<label>Marca</label>
-<input type="text" id="marca" required>
-</div>
+<div class="botones">
 
-<div class="campo completo">
-<label>Nombre del producto</label>
-<input type="text" id="nombre" required>
-</div>
+    <button type="submit" class="btn dorado" id="guardar">
+        AÑADIR PRODUCTO
+    </button>
 
-<div class="campo completo">
-<label>Descripción</label>
-<textarea id="descripcion" required></textarea>
-</div>
-
-<div class="campo">
-<label>Precio (Bs.)</label>
-<input type="number" id="precio" min="0.01" step="0.01" required>
-</div>
-
-<div class="campo">
-<label>Imagen (ruta)</label>
-<input type="text" id="imagen" placeholder="img/producto.jpg">
-</div>
+    <button type="button" class="btn gris"
+    onclick="limpiarFormulario()">
+        CANCELAR
+    </button>
 
 </div>
-
-<br>
-
-<button type="submit" class="guardar" id="btn-guardar">
-AÑADIR PRODUCTO
-</button>
-
-<button type="button" class="cancelar" onclick="limpiarFormulario()">
-CANCELAR
-</button>
 
 <p id="mensaje"></p>
 
@@ -245,30 +375,30 @@ CANCELAR
 
 <section class="panel">
 
-<h2>Productos registrados</h2>
+<h2>Gestión del catálogo</h2>
 
 <input
 type="text"
-id="buscador"
-placeholder="Buscar producto..."
-style="width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:6px;"
+id="buscar"
+class="busqueda"
+placeholder="Buscar producto por nombre o marca..."
 >
 
-<div class="tabla-contenedor">
+<div class="tabla">
 
 <table>
 
 <thead>
 <tr>
-<th>Imagen</th>
-<th>Producto</th>
-<th>Categoría</th>
-<th>Precio</th>
-<th>Acciones</th>
+    <th>Imagen</th>
+    <th>Producto</th>
+    <th>Categoría</th>
+    <th>Precio</th>
+    <th>Acciones</th>
 </tr>
 </thead>
 
-<tbody id="lista-productos"></tbody>
+<tbody id="lista"></tbody>
 
 </table>
 
@@ -278,128 +408,173 @@ style="width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-r
 
 </main>
 
+<footer>
+    © 2026 TIENDA VYQ | Sistema de Administración
+</footer>
+
 
 <script>
 
 const CLAVE = "tiendaVYQ_productos_v1";
 
-let productos = JSON.parse(localStorage.getItem(CLAVE) || "[]");
+let productos = JSON.parse(
+    localStorage.getItem(CLAVE) || "[]"
+);
 
+const $ = id => document.getElementById(id);
+
+
+// GUARDAR EN LOCALSTORAGE
 
 function guardarDatos() {
 
-    localStorage.setItem(CLAVE, JSON.stringify(productos));
+    localStorage.setItem(
+        CLAVE,
+        JSON.stringify(productos)
+    );
 
     mostrarProductos();
 
 }
 
 
+// MOSTRAR PRODUCTOS
+
 function mostrarProductos() {
 
-    const lista = document.getElementById("lista-productos");
+    const lista = $("lista");
 
-    const busqueda = document.getElementById("buscador")
-        .value.toLowerCase();
+    const buscar = $("buscar").value.toLowerCase();
 
     lista.innerHTML = "";
 
     productos.forEach((p, index) => {
 
         if (
-            !p.nombre.toLowerCase().includes(busqueda) &&
-            !p.marca.toLowerCase().includes(busqueda)
+            !p.nombre.toLowerCase().includes(buscar) &&
+            !p.marca.toLowerCase().includes(buscar)
         ) return;
 
-        lista.innerHTML += `
+        const fila = document.createElement("tr");
 
-        <tr>
+        const imagen = document.createElement("td");
+        const img = document.createElement("img");
 
-            <td>
-                <img src="${p.imagen || ''}"
-                onerror="this.style.display='none'">
-            </td>
+        img.src = p.imagen || "";
+        img.alt = p.nombre;
+        img.onerror = () => img.style.visibility = "hidden";
 
-            <td>
-                <strong>${p.nombre}</strong><br>
-                ${p.marca}
-            </td>
+        imagen.appendChild(img);
 
-            <td>
-                ${p.categoria === "ropa" ? "Ropa" : "Perfumería"}
-            </td>
+        const nombre = document.createElement("td");
+        nombre.textContent = p.nombre + " - " + p.marca;
 
-            <td class="precio">
-                Bs. ${Number(p.precio).toFixed(2)}
-            </td>
+        const categoria = document.createElement("td");
+        categoria.textContent =
+            p.categoria === "ropa" ? "Ropa" : "Perfumería";
 
-            <td>
+        const precio = document.createElement("td");
+        precio.className = "precio";
+        precio.textContent = "Bs. " + Number(p.precio).toFixed(2);
 
-                <button class="editar"
-                onclick="editarProducto(${index})">
-                    EDITAR
-                </button>
+        const acciones = document.createElement("td");
+        acciones.className = "acciones";
 
-                <button class="eliminar"
-                onclick="eliminarProducto(${index})">
-                    ELIMINAR
-                </button>
+        const editar = document.createElement("button");
+        editar.className = "btn dorado";
+        editar.textContent = "EDITAR";
+        editar.onclick = () => editarProducto(index);
 
-            </td>
+        const eliminar = document.createElement("button");
+        eliminar.className = "btn rojo";
+        eliminar.textContent = "ELIMINAR";
+        eliminar.onclick = () => eliminarProducto(index);
 
-        </tr>
+        acciones.append(editar, eliminar);
 
-        `;
+        fila.append(imagen, nombre, categoria, precio, acciones);
+
+        lista.appendChild(fila);
 
     });
+
+    actualizarMetricas();
 
 }
 
 
-document.getElementById("formulario")
-.addEventListener("submit", function(e) {
+// ACTUALIZAR ESTADÍSTICAS
+
+function actualizarMetricas() {
+
+    $("total-productos").textContent = productos.length;
+
+    $("total-perfumes").textContent =
+        productos.filter(p => p.categoria === "perfumeria").length;
+
+    $("total-ropa").textContent =
+        productos.filter(p => p.categoria === "ropa").length;
+
+}
+
+
+// AÑADIR O MODIFICAR PRODUCTOS
+
+$("formulario").addEventListener("submit", function(e) {
 
     e.preventDefault();
 
-    const id = document.getElementById("id").value;
+    const id = $("id").value;
 
     const producto = {
 
-        categoria: document.getElementById("categoria").value,
+        id: id || (
+            crypto.randomUUID
+            ? crypto.randomUUID()
+            : String(Date.now())
+        ),
 
-        marca: document.getElementById("marca").value.trim(),
+        categoria: $("categoria").value,
 
-        nombre: document.getElementById("nombre").value.trim(),
+        marca: $("marca").value.trim(),
 
-        descripcion: document.getElementById("descripcion").value.trim(),
+        nombre: $("nombre").value.trim(),
 
-        precio: Number(document.getElementById("precio").value),
+        descripcion: $("descripcion").value.trim(),
 
-        imagen: document.getElementById("imagen").value.trim()
+        precio: Number($("precio").value),
+
+        imagen: $("imagen").value.trim()
 
     };
 
-    if (!producto.nombre || !producto.marca ||
-        !producto.descripcion || producto.precio <= 0) {
-
-        alert("Completa correctamente todos los campos.");
-
+    if (
+        !producto.nombre ||
+        !producto.marca ||
+        !producto.descripcion ||
+        !Number.isFinite(producto.precio) ||
+        producto.precio <= 0
+    ) {
+        alert("Completa correctamente los campos.");
         return;
-
     }
 
-    if (id !== "") {
+    if(id !== "") {
 
-        productos[Number(id)] = producto;
+        const index = productos.findIndex(p => p.id === id);
 
-        document.getElementById("mensaje").textContent =
+        if(index !== -1) {
+            productos[index] = producto;
+        }
+
+        $("mensaje").textContent =
             "Producto actualizado correctamente.";
 
     } else {
 
         productos.push(producto);
 
-        document.getElementById("mensaje").textContent =
+        $("mensaje").textContent =
             "Producto añadido correctamente.";
 
     }
@@ -411,38 +586,43 @@ document.getElementById("formulario")
 });
 
 
+// EDITAR PRODUCTO
+
 function editarProducto(index) {
 
     const p = productos[index];
 
-    document.getElementById("id").value = index;
+    $("id").value = p.id;
 
-    document.getElementById("categoria").value = p.categoria;
+    $("categoria").value = p.categoria;
 
-    document.getElementById("marca").value = p.marca;
+    $("marca").value = p.marca;
 
-    document.getElementById("nombre").value = p.nombre;
+    $("nombre").value = p.nombre;
 
-    document.getElementById("descripcion").value = p.descripcion;
+    $("descripcion").value = p.descripcion;
 
-    document.getElementById("precio").value = p.precio;
+    $("precio").value = p.precio;
 
-    document.getElementById("imagen").value = p.imagen || "";
+    $("imagen").value = p.imagen || "";
 
-    document.getElementById("titulo-formulario").textContent =
-        "Modificar producto";
+    $("titulo-form").textContent = "Modificar producto";
 
-    document.getElementById("btn-guardar").textContent =
-        "GUARDAR CAMBIOS";
+    $("guardar").textContent = "GUARDAR CAMBIOS";
 
-    window.scrollTo({top: 0, behavior: "smooth"});
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 
 }
 
 
+// ELIMINAR PRODUCTO
+
 function eliminarProducto(index) {
 
-    if (confirm("¿Estás seguro de eliminar este producto?")) {
+    if(confirm("¿Deseas eliminar este producto?")) {
 
         productos.splice(index, 1);
 
@@ -453,24 +633,43 @@ function eliminarProducto(index) {
 }
 
 
+// LIMPIAR FORMULARIO
+
 function limpiarFormulario() {
 
-    document.getElementById("formulario").reset();
+    $("formulario").reset();
 
-    document.getElementById("id").value = "";
+    $("id").value = "";
 
-    document.getElementById("titulo-formulario").textContent =
+    $("titulo-form").textContent =
         "Añadir nuevo producto";
 
-    document.getElementById("btn-guardar").textContent =
+    $("guardar").textContent =
         "AÑADIR PRODUCTO";
+
+    $("mensaje").textContent = "";
 
 }
 
 
-document.getElementById("buscador")
-.addEventListener("input", mostrarProductos);
+// BUSCADOR
 
+$("buscar").addEventListener("input", mostrarProductos);
+
+
+// ACTUALIZACIÓN AUTOMÁTICA SI CAMBIA OTRA PESTAÑA
+
+window.addEventListener("storage", function(e) {
+
+    if(e.key === CLAVE) {
+
+        productos = JSON.parse(e.newValue || "[]");
+
+        mostrarProductos();
+
+    }
+
+});
 
 mostrarProductos();
 
