@@ -35,13 +35,14 @@
         .form-agregar input, .form-agregar select { padding: 8px 12px; border: 1px solid var(--borde); border-radius: 4px; font-size: 0.9rem; flex: 1; min-width: 150px; }
         .btn-accion { background-color: var(--dorado); color: var(--negro); border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 0.9rem; }
         .btn-accion:hover { background-color: #f3e5ab; }
+        .btn-restablecer { background-color: #17a2b8; color: #fff; border: none; padding: 8px 12px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-bottom: 15px; }
 
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--borde); }
         th { background-color: var(--negro); color: var(--dorado); }
         tr:hover { background-color: #f9f9f9; }
 
-        .input-precio { width: 90px; padding: 5px; font-weight: bold; border: 1px solid var(--borde); border-radius: 4px; }
+        .input-precio { width: 90px; padding: 5px; font-weight: bold; border: 1px solid #ccc; border-radius: 4px; font-size: 0.95rem; }
         .btn-guardar { background-color: #28a745; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-right: 5px; }
         .btn-eliminar { background-color: #dc3545; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .btn-guardar:hover { background-color: #218838; }
@@ -77,6 +78,8 @@
         <!-- GESTIÓN DE CATÁLOGO -->
         <div class="panel-seccion">
             <h3>Gestión de Inventario y Modificación de Precios</h3>
+            <br>
+            <button type="button" class="btn-restablecer" onclick="window.restablecerOficiales()">🔄 Restablecer 18 Productos Oficiales</button>
             
             <!-- FORMULARIO PARA AGREGAR NUEVOS PRODUCTOS -->
             <form id="form-producto" class="form-agregar">
@@ -97,7 +100,7 @@
                         <th>Nombre del Producto</th>
                         <th>Categoría</th>
                         <th>Precio (Bs.)</th>
-                        <th>Acciones (Modificar / Borrar)</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="tabla-inventario">
@@ -112,8 +115,7 @@
     </footer>
 
     <script>
-        // Los 18 productos reales (5 perfumes + 13 prendas/accesorios)
-        const productosIniciales = [
+        const productosOficiales = [
             { id: 1, nombre: "Expression Sens (Ésika)", categoria: "Perfumería", precio: 145 },
             { id: 2, nombre: "Expression Magic (Ésika)", categoria: "Perfumería", precio: 145 },
             { id: 3, nombre: "Sweet Black Intense (Cyzone)", categoria: "Perfumería", precio: 115 },
@@ -134,7 +136,12 @@
             { id: 18, nombre: "Choker Ajustable de Moda", categoria: "Ropa y Prendas", precio: 50 }
         ];
 
-        let productos = JSON.parse(localStorage.getItem('vyq_productos')) || productosIniciales;
+        let productos = JSON.parse(localStorage.getItem('vyq_productos'));
+        
+        if (!productos || productos.length === 0) {
+            productos = Array.from(productosOficiales);
+            localStorage.setItem('vyq_productos', JSON.stringify(productos));
+        }
 
         const tablaBody = document.getElementById('tabla-inventario');
         const totalElem = document.getElementById('total-productos');
@@ -148,10 +155,10 @@
                     <td>#${String(index + 1).padStart(2, '0')}</td>
                     <td>${prod.nombre}</td>
                     <td>${prod.categoria}</td>
-                    <td>Bs. <input type="number" id="precio-${index}" value="${prod.precio}" class="input-precio" min="1"></td>
+                    <td>Bs. <input type="number" id="input-precio-${index}" value="${prod.precio}" class="input-precio" min="1"></td>
                     <td>
-                        <button class="btn-guardar" onclick="actualizarPrecio(${index})">Guardar Precio</button>
-                        <button class="btn-eliminar" onclick="eliminarProducto(${index})">Eliminar</button>
+                        <button type="button" class="btn-guardar" onclick="window.actualizarPrecio(${index})">Guardar Precio</button>
+                        <button type="button" class="btn-eliminar" onclick="window.eliminarProducto(${index})">Eliminar</button>
                     </td>
                 `;
                 tablaBody.appendChild(tr);
@@ -160,17 +167,35 @@
             totalElem.textContent = productos.length;
         }
 
-        // Modificar precio en tiempo real
+        window.restablecerOficiales = function() {
+            productos = JSON.parse(JSON.stringify(productosOficiales));
+            localStorage.setItem('vyq_productos', JSON.stringify(productos));
+            renderizarTabla();
+            alert("¡Se han restablecido los 18 productos oficiales!");
+        };
+
         window.actualizarPrecio = function(index) {
-            const nuevoPrecio = Number(document.getElementById(`precio-${index}`).value);
+            const inputElement = document.getElementById('input-precio-' + index);
+            if (!inputElement) return;
+
+            const nuevoPrecio = Number(inputElement.value);
             if (nuevoPrecio <= 0 || isNaN(nuevoPrecio)) {
                 alert("Por favor ingresa un precio válido.");
                 return;
             }
+
             productos[index].precio = nuevoPrecio;
             localStorage.setItem('vyq_productos', JSON.stringify(productos));
-            alert(`¡Precio actualizado con éxito para "${productos[index].nombre}" a Bs. ${nuevoPrecio}!`);
+            alert('¡Precio actualizado a Bs. ' + nuevoPrecio + ' para "' + productos[index].nombre + '"!');
             renderizarTabla();
+        };
+
+        window.eliminarProducto = function(index) {
+            if (confirm('¿Estás seguro de eliminar "' + productos[index].nombre + '"?')) {
+                productos.splice(index, 1);
+                localStorage.setItem('vyq_productos', JSON.stringify(productos));
+                renderizarTabla();
+            }
         };
 
         formProducto.addEventListener('submit', (e) => {
@@ -179,18 +204,11 @@
             const categoria = document.getElementById('categoria-prod').value;
             const precio = Number(document.getElementById('precio-prod').value);
 
-            productos.push({ id: Date.now(), nombre, categoria, precio });
+            productos.push({ id: Date.now(), nombre: nombre, categoria: categoria, precio: precio });
+            localStorage.setItem('vyq_productos', JSON.stringify(productos));
             renderizarTabla();
             formProducto.reset();
-            alert("¡Producto agregado con éxito!");
         });
-
-        window.eliminarProducto = function(index) {
-            if (confirm(`¿Estás seguro de eliminar "${productos[index].nombre}"?`)) {
-                productos.splice(index, 1);
-                renderizarTabla();
-            }
-        };
 
         renderizarTabla();
     </script>
