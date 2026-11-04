@@ -111,8 +111,7 @@
     </footer>
 
     <script>
-        // LISTA DE PRODUCTOS CON RUTAS DE IMÁGENES CORREGIDAS
-        var productosIniciales = [
+        var productosBase = [
             { id: 1, nombre: "Expression Sens", categoria: "Perfumería", marca: "Ésika", precio: 145, desc: "Aroma Chipre floral elegante. Contenido: 50 ml.", img: "img/Imagen 2.jpg" },
             { id: 2, nombre: "Expression Magic", categoria: "Perfumería", marca: "Ésika", precio: 145, desc: "Aroma floral frutal cautivador. Contenido: 50 ml.", img: "img/Imagen 20.jpg" },
             { id: 3, nombre: "Sweet Black Intense", categoria: "Perfumería", marca: "Cyzone", precio: 115, desc: "Aroma dulce intenso juvenil. Contenido: 50 ml.", img: "img/Imagen 15.jpg" },
@@ -134,13 +133,26 @@
         ];
 
         function obtenerProductos() {
-            var guardados = localStorage.getItem("vyq_productos");
-            if (guardados) {
-                return JSON.parse(guardados);
-            } else {
-                localStorage.setItem("vyq_productos", JSON.stringify(productosIniciales));
-                return productosIniciales;
+            var guardados = localStorage.getItem("vyq_productos_v4");
+            if (!guardados) {
+                localStorage.setItem("vyq_productos_v4", JSON.stringify(productosBase));
+                return productosBase;
             }
+            
+            var prodsGuardados = JSON.parse(guardados);
+            // Sincronizar y rellenar cualquier campo faltante para evitar "undefined"
+            for (var i = 0; i < prodsGuardados.length; i++) {
+                for (var j = 0; j < productosBase.length; j++) {
+                    if (prodsGuardados[i].id === productosBase[j].id) {
+                        if (!prodsGuardados[i].marca) prodsGuardados[i].marca = productosBase[j].marca;
+                        if (!prodsGuardados[i].desc) prodsGuardados[i].desc = productosBase[j].desc;
+                        if (!prodsGuardados[i].img) prodsGuardados[i].img = productosBase[j].img;
+                        if (!prodsGuardados[i].categoria) prodsGuardados[i].categoria = productosBase[j].categoria;
+                        break;
+                    }
+                }
+            }
+            return prodsGuardados;
         }
 
         function renderizarTienda() {
@@ -151,11 +163,11 @@
             for (var i = 0; i < prods.length; i++) {
                 var p = prods[i];
                 var tarjeta = '<article class="producto">' +
-                    '<div class="producto-imagen"><img src="' + p.img + '" alt="' + p.nombre + '"></div>' +
+                    '<div class="producto-imagen"><img src="' + (p.img || 'img/Imagen 1.jpg') + '" alt="' + p.nombre + '"></div>' +
                     '<div class="producto-info">' +
-                        '<span class="marca-tag">' + p.marca + '</span>' +
+                        '<span class="marca-tag">' + (p.marca || 'TIENDA VYQ') + '</span>' +
                         '<h3>' + p.nombre + '</h3>' +
-                        '<p>' + p.desc + '</p>' +
+                        '<p>' + (p.desc || 'Disponible en tienda') + '</p>' +
                         '<div class="precio-linea"><span class="precio">Bs. ' + p.precio + '</span></div>' +
                         '<button type="button" class="btn-comprar" onclick="agregarAlCarrito(\'' + p.nombre.replace(/'/g, "\\'") + '\', ' + p.precio + ')">Añadir al carrito</button>' +
                     '</div>' +
@@ -229,7 +241,7 @@
             mensaje += "• Nombre: " + nombre + "\n";
             mensaje += "• Edad: " + edad + "\n";
             mensaje += "• Talla / Modelo: " + talla + "\n";
-            mensaje += "• Para cuándo lo quiere: " + fecha + "\n";
+            mensaje += "• Para cuándo lo quieres: " + fecha + "\n";
 
             var urlWhatsApp = "https://wa.me/59163062304?text=" + encodeURIComponent(mensaje);
             window.open(urlWhatsApp, "_blank");
