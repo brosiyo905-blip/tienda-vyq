@@ -14,13 +14,18 @@
             --borde: #e0e0e0;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--fondo); color: var(--texto); line-height: 1.6; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--fondo); color: var(--texto); line-height: 1.6; padding-bottom: 70px; }
         header { background-color: var(--negro); color: var(--dorado); text-align: center; padding: 30px 15px; border-bottom: 4px solid var(--dorado); }
         header h1 { font-size: 2.5rem; letter-spacing: 2px; text-transform: uppercase; }
         header p { color: #cccccc; font-size: 1rem; margin-top: 5px; }
-        nav { background-color: var(--gris-oscuro); display: flex; justify-content: center; gap: 20px; padding: 12px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; }
+        
+        nav { background-color: var(--gris-oscuro); display: flex; justify-content: center; gap: 20px; padding: 12px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; align-items: center; }
         nav a { color: #ffffff; text-decoration: none; font-weight: 600; }
         nav a:hover { color: var(--dorado); }
+        .nav-admin-link { color: var(--dorado) !important; border: 1px solid var(--dorado); padding: 5px 10px; border-radius: 4px; }
+        .nav-carrito-btn { background-color: #25d366; color: #fff !important; padding: 6px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; border: none; font-size: 0.95rem; }
+        .nav-carrito-btn:hover { background-color: #20ba5a; }
+
         main { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
         .categoria-titulo { font-size: 1.8rem; color: var(--negro); margin: 30px 0 15px; border-left: 5px solid var(--dorado); padding-left: 10px; }
         .catalogo { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
@@ -30,13 +35,23 @@
         .producto-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; }
         .marca-tag { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; color: #888; margin-bottom: 5px; }
         .producto-info h3 { font-size: 1.1rem; color: var(--negro); margin-bottom: 8px; }
-        .producto-info p { font-size: 0.85rem; color: #666; margin-bottom: 15px; flex-grow: 1; }
-        .precio-linea { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .producto-info p { font-size: 0.85rem; color: #666; margin-bottom: 12px; flex-grow: 1; }
+        .precio-linea { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .precio { font-size: 1.2rem; font-weight: bold; color: #b12704; }
-        .btn-comprar { background-color: var(--dorado); color: var(--negro); border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; }
+        .btn-comprar { background-color: var(--dorado); color: var(--negro); border: none; padding: 10px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 0.95rem; }
         .btn-comprar:hover { background-color: #f3e5ab; }
-        .carrito-flotante { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: #fff; padding: 14px 24px; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 1000; cursor: pointer; border: 2px solid #fff; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
-        .carrito-flotante:hover { background-color: #20ba5a; }
+
+        /* MODAL DE PEDIDO */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; justify-content: center; align-items: center; }
+        .modal-contenido { background: #fff; padding: 25px; border-radius: 10px; width: 90%; max-width: 450px; box-shadow: 0 5px 25px rgba(0,0,0,0.4); max-height: 90vh; overflow-y: auto; }
+        .modal-contenido h3 { margin-bottom: 15px; color: var(--negro); border-bottom: 2px solid var(--dorado); padding-bottom: 5px; }
+        .form-grupo { margin-bottom: 12px; display: flex; flex-direction: column; }
+        .form-grupo label { font-size: 0.9rem; font-weight: bold; margin-bottom: 5px; color: #333; }
+        .form-grupo input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 0.95rem; }
+        .btn-enviar-wa { background-color: #25d366; color: #fff; border: none; padding: 12px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 1rem; margin-top: 10px; }
+        .btn-enviar-wa:hover { background-color: #20ba5a; }
+        .btn-cerrar { background-color: #ccc; color: #333; border: none; padding: 8px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 5px; }
+
         footer { background-color: var(--negro); color: #ffffff; text-align: center; padding: 20px; margin-top: 50px; border-top: 3px solid var(--dorado); }
     </style>
 </head>
@@ -44,251 +59,167 @@
 
     <header>
         <h1>TIENDA VYQ</h1>
-        <p>Elegancia, estilo y distinción • Proyecto de Grado</p>
+        <p>Elegancia, estilo y distinción • Bolivia</p>
     </header>
 
     <nav>
         <a href="#perfumeria">Perfumería</a>
         <a href="#ropa">Ropa y Prendas</a>
+        <a href="admin.html" target="_blank" class="nav-admin-link">⚙️ Panel Admin</a>
+        <button type="button" class="nav-carrito-btn" onclick="abrirModal()">🛒 Ver Carrito (<span id="contador-nav">0</span>)</button>
     </nav>
 
-    <!-- BOTÓN CARRITO CONECTADO A WHATSAPP -->
-    <button type="button" id="btn-ver-carrito" class="carrito-flotante" onclick="enviarPedidoWhatsApp()">
-        🛒 Ver Pedido (<span id="contador-carrito">0</span>)
-    </button>
+    <!-- MODAL DE PEDIDO -->
+    <div id="modal-pedido" class="modal-overlay">
+        <div class="modal-contenido">
+            <h3>Tu Carrito y Datos de Pedido</h3>
+            <div id="resumen-carrito" style="font-size: 0.9rem; margin-bottom: 15px; color: #555; background: #f9f9f9; padding: 10px; border-radius: 5px;"></div>
+            
+            <div class="form-grupo">
+                <label for="cliente-nombre">Tu Nombre:</label>
+                <input type="text" id="cliente-nombre" placeholder="Ej. Juan Pérez">
+            </div>
+
+            <div class="form-grupo">
+                <label for="cliente-edad">Tu Edad:</label>
+                <input type="number" id="cliente-edad" placeholder="Ej. 18">
+            </div>
+
+            <div class="form-grupo">
+                <label for="cliente-talla">Talla (o ml en perfumes):</label>
+                <input type="text" id="cliente-talla" placeholder="Ej. Talla L / 50ml">
+            </div>
+
+            <div class="form-grupo">
+                <label for="cliente-fecha">¿Para cuándo lo quieres?:</label>
+                <input type="text" id="cliente-fecha" placeholder="Ej. Para este viernes / Urgente">
+            </div>
+
+            <button type="button" class="btn-enviar-wa" onclick="enviarPedidoWhatsApp()">📲 Enviar Pedido al 63062304</button>
+            <button type="button" class="btn-cerrar" onclick="cerrarModal()">Cerrar / Seguir viendo</button>
+        </div>
+    </div>
 
     <main>
-        <!-- SECCIÓN PERFUMERÍA -->
         <h2 class="categoria-titulo" id="perfumeria">Perfumería</h2>
-        <div class="catalogo">
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 2.jpg" alt="Expression Sens"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">Ésika</span>
-                    <h3>Expression Sens</h3>
-                    <p>Aroma Chipre floral de 50 ml.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 145</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Expression Sens', 145)">Añadir al carrito</button>
-                </div>
-            </article>
+        <div class="catalogo" id="catalogo-perfumeria"></div>
 
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 20.jpg" alt="Expression Magic"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">Ésika</span>
-                    <h3>Expression Magic</h3>
-                    <p>Aroma floral frutal de 50 ml.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 145</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Expression Magic', 145)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 15.jpg" alt="Sweet Black Intense"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">Cyzone</span>
-                    <h3>Sweet Black Intense</h3>
-                    <p>Aroma dulce intenso de 50 ml.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 115</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sweet Black Intense', 115)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 3.jpg" alt="All Black"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">Cyzone</span>
-                    <h3>All Black</h3>
-                    <p>Aroma oriental maderoso de 90 ml.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 115</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('All Black', 115)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 11.jpg" alt="Nitro Air"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">Cyzone</span>
-                    <h3>Nitro Air</h3>
-                    <p>Aroma herbal con notas de lavanda, 100 ml.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 115</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Nitro Air', 115)">Añadir al carrito</button>
-                </div>
-            </article>
-        </div>
-
-        <!-- SECCIÓN ROPA -->
         <h2 class="categoria-titulo" id="ropa">Ropa y Prendas</h2>
-        <div class="catalogo">
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 13.jpg" alt="Nike Naranja"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">Nike</span>
-                    <h3>Sudadera Nike Clásica Naranja</h3>
-                    <p>Prenda deportiva con swoosh bordado. Talla L.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 150</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sudadera Nike Clásica Naranja', 150)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 23.jpg" alt="Nike Fayetteville Tech"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">Nike</span>
-                    <h3>Sudadera Nike Fayetteville Tech</h3>
-                    <p>Estilo deportivo universitario premium.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 150</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sudadera Nike Fayetteville Tech', 150)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 16.jpg" alt="Tommy"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">Tommy Hilfiger</span>
-                    <h3>Sweater Tommy Hilfiger</h3>
-                    <p>Diseño casual elegante con bordado distintivo.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 160</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sweater Tommy Hilfiger', 160)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 7.jpg" alt="Jordan"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">Jordan</span>
-                    <h3>Chaqueta Deportiva Jordan Basketball</h3>
-                    <p>Chaqueta azul marino con detalles blancos.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 180</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Chaqueta Deportiva Jordan', 180)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 19.jpg" alt="Chamarra Gamuza"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">ANG</span>
-                    <h3>Chamarra Gamuza con Forro Polar</h3>
-                    <p>Abrigo marrón tipo gamuza con cuello de corderito.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 195</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Chamarra Gamuza', 195)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 4.jpg" alt="Sudadera Roja Corazones"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">ANG / Urbano</span>
-                    <h3>Sudadera Roja de Corazones</h3>
-                    <p>Diseño casual rojo con detalles de corazones blancos.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 130</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sudadera Roja de Corazones', 130)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 5.jpg" alt="Sudadera Roja Stardust"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">ANG / Urbano</span>
-                    <h3>Sudadera Roja Stardust</h3>
-                    <p>Estilo urbano con estampado bordado frontal.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 130</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sudadera Roja Stardust', 130)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 22.jpg" alt="Sudadera Garris Evans"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">ANG / Urbano</span>
-                    <h3>Sudadera Gris Garris Evans</h3>
-                    <p>Estilo clásico en color gris con estampado corporativo.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 135</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sudadera Gris Garris Evans', 135)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 9.jpg" alt="Sudadera Negra"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">ANG / Urbano</span>
-                    <h3>Sudadera Negra Lisa</h3>
-                    <p>Estilo minimalista en color negro.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 140</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sudadera Negra Lisa', 140)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 10.jpg" alt="Sudadera Canguro"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">ANG / Urbano</span>
-                    <h3>Sudadera Negra con Bolsillo Canguro</h3>
-                    <p>Diseño urbano negro con bolsillo frontal.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 140</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sudadera Canguro', 140)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 12.jpg" alt="Sudadera Azul Pack"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">ANG / Urbano</span>
-                    <h3>Sudadera Azul Pack National Team</h3>
-                    <p>Estilo deportivo con estampado frontal y estrellas.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 145</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sudadera Azul Pack', 145)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 1.jpg" alt="Sudadera Slainte"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">ANG / Urbano</span>
-                    <h3>Sudadera Verde Sláinte</h3>
-                    <p>Estilo verde oscuro con trébol de la suerte.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 140</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Sudadera Verde Sláinte', 140)">Añadir al carrito</button>
-                </div>
-            </article>
-
-            <article class="producto">
-                <div class="producto-imagen"><img src="img/Imagen 6.jpg" alt="Chamarra Geométrica"></div>
-                <div class="producto-info">
-                    <span class="marca-tag">ANG</span>
-                    <h3>Chamarra Acolchada Geométrica</h3>
-                    <p>Diseño moderno con cuello alto y patrones exclusivos.</p>
-                    <div class="precio-linea"><span class="precio">Bs. 185</span></div>
-                    <button type="button" class="btn-comprar" onclick="agregarAlCarrito('Chamarra Geométrica', 185)">Añadir al carrito</button>
-                </div>
-            </article>
-        </div>
+        <div class="catalogo" id="catalogo-ropa"></div>
     </main>
 
     <footer>
         <p>&copy; 2026 TIENDA VYQ. Sexto de Secundaria. Proyecto de Grado.</p>
     </footer>
 
-    <!-- JAVASCRIPT DE COMPRA DIRECTA E INFALIBLE -->
     <script>
+        // LISTA INICIAL DE PRODUCTOS (Coincide exactamente con tus imágenes)
+        var productosIniciales = [
+            { id: 1, nombre: "Expression Sens", categoria: "Perfumería", marca: "Ésika", precio: 145, desc: "Aroma Chipre floral elegante. Contenido: 50 ml.", img: "img/Imagen 2.jpg" },
+            { id: 2, nombre: "Expression Magic", categoria: "Perfumería", marca: "Ésika", precio: 145, desc: "Aroma floral frutal cautivador. Contenido: 50 ml.", img: "img/Imagen 20.jpg" },
+            { id: 3, nombre: "Sweet Black Intense", categoria: "Perfumería", marca: "Cyzone", precio: 115, desc: "Aroma dulce intenso juvenil. Contenido: 50 ml.", img: "img/Imagen 15.jpg" },
+            { id: 4, nombre: "All Black", categoria: "Perfumería", marca: "Cyzone", precio: 115, desc: "Aroma oriental maderoso. Contenido: 90 ml.", img: "img/Imagen 3.jpg" },
+            { id: 5, nombre: "Nitro Air", categoria: "Perfumería", marca: "Cyzone", precio: 115, desc: "Aroma herbal fresco con lavanda. Contenido: 100 ml.", img: "img/Imagen 11.jpg" },
+            { id: 6, nombre: "Sudadera Nike Clásica Naranja", categoria: "Ropa", marca: "Nike", precio: 150, desc: "Prenda deportiva con swoosh bordado. Talla L.", img: "img/Imagen 13.jpg" },
+            { id: 7, nombre: "Sudadera Nike Fayetteville Tech", categoria: "Ropa", marca: "Nike", precio: 150, desc: "Estilo deportivo universitario premium.", img: "img/Imagen 23.jpg" },
+            { id: 8, nombre: "Sweater Tommy Hilfiger", categoria: "Ropa", marca: "Tommy Hilfiger", precio: 160, desc: "Diseño casual elegante con bordado distintivo.", img: "img/Imagen 16.jpg" },
+            { id: 9, nombre: "Chaqueta Deportiva Jordan Basketball", categoria: "Ropa", marca: "Jordan", precio: 180, desc: "Chaqueta azul marino con detalles blancos.", img: "img/Imagen 7.jpg" },
+            { id: 10, nombre: "Chamarra Gamuza con Forro Polar", categoria: "Ropa", marca: "ANG", precio: 195, desc: "Abrigo marrón tipo gamuza con cuello de corderito.", img: "img/Imagen 19.jpg" },
+            { id: 11, nombre: "Sudadera Roja de Corazones", categoria: "Ropa", marca: "ANG / Urbano", precio: 130, desc: "Diseño casual rojo con detalles de corazones blancos.", img: "img/Imagen 4.jpg" },
+            { id: 12, nombre: "Sudadera Roja Stardust", categoria: "Ropa", marca: "ANG / Urbano", precio: 130, desc: "Estilo urbano con estampado bordado frontal.", img: "img/Imagen 5.jpg" },
+            { id: 13, nombre: "Sudadera Gris Garris Evans", categoria: "Ropa", marca: "ANG / Urbano", precio: 135, desc: "Estilo clásico en color gris con estampado corporativo.", img: "img/Imagen 22.jpg" },
+            { id: 14, nombre: "Sudadera Negra Lisa", categoria: "Ropa", marca: "ANG / Urbano", precio: 140, desc: "Estilo minimalista en color negro.", img: "img/Imagen 9.jpg" },
+            { id: 15, nombre: "Sudadera Negra con Bolsillo Canguro", categoria: "Ropa", marca: "ANG / Urbano", precio: 140, desc: "Diseño urbano negro con bolsillo frontal.", img: "img/Imagen 10.jpg" },
+            { id: 16, nombre: "Sudadera Azul Pack National Team", categoria: "Ropa", marca: "ANG / Urbano", precio: 145, desc: "Estilo deportivo con estampado frontal y estrellas.", img: "img/Imagen 12.jpg" },
+            { id: 17, nombre: "Sudadera Verde Sláinte", categoria: "Ropa", marca: "ANG / Urbano", precio: 140, desc: "Estilo verde oscuro con trébol de la suerte.", img: "img/Imagen 1.jpg" },
+            { id: 18, nombre: "Chamarra Acolchada Geométrica", categoria: "Ropa", marca: "ANG", precio: 185, desc: "Diseño moderno con cuello alto y patrones exclusivos.", img: "img/Imagen 6.jpg" }
+        ];
+
+        // Cargar productos desde localStorage o usar los iniciales
+        function obtenerProductos() {
+            var guardados = localStorage.getItem("vyq_productos");
+            if (guardados) {
+                return JSON.parse(guardados);
+            } else {
+                localStorage.setItem("vyq_productos", JSON.stringify(productosIniciales));
+                return productosIniciales;
+            }
+        }
+
+        function renderizarTienda() {
+            var prods = obtenerProductos();
+            var htmlPerfumeria = "";
+            var htmlRopa = "";
+
+            for (var i = 0; i < prods.length; i++) {
+                var p = prods[i];
+                var tarjeta = '<article class="producto">' +
+                    '<div class="producto-imagen"><img src="' + p.img + '" alt="' + p.nombre + '"></div>' +
+                    '<div class="producto-info">' +
+                        '<span class="marca-tag">' + p.marca + '</span>' +
+                        '<h3>' + p.nombre + '</h3>' +
+                        '<p>' + p.desc + '</p>' +
+                        '<div class="precio-linea"><span class="precio">Bs. ' + p.precio + '</span></div>' +
+                        '<button type="button" class="btn-comprar" onclick="agregarAlCarrito(\'' + p.nombre.replace(/'/g, "\\'") + '\', ' + p.precio + ')">Añadir al carrito</button>' +
+                    '</div>' +
+                '</article>';
+
+                if (p.categoria === "Perfumería") {
+                    htmlPerfumeria += tarjeta;
+                } else {
+                    htmlRopa += tarjeta;
+                }
+            }
+
+            document.getElementById("catalogo-perfumeria").innerHTML = htmlPerfumeria;
+            document.getElementById("catalogo-ropa").innerHTML = htmlRopa;
+        }
+
         var carritoCompras = [];
 
         function agregarAlCarrito(nombre, precio) {
             carritoCompras.push({ nombre: nombre, precio: precio });
-            var contador = document.getElementById("contador-carrito");
-            if (contador) {
-                contador.textContent = carritoCompras.length;
+            var contadorNav = document.getElementById("contador-nav");
+            if (contadorNav) {
+                contadorNav.textContent = carritoCompras.length;
             }
-            alert("✅ ¡Agregado al carrito: " + nombre + " (Bs. " + precio + ")!");
+            alert("✅ ¡Agregado al carrito: " + nombre + "!");
         }
 
-        function enviarPedidoWhatsApp() {
+        function abrirModal() {
             if (carritoCompras.length === 0) {
-                alert("🛒 Tu carrito está vacío. Añade al menos un producto para hacer un pedido.");
+                alert("🛒 Tu carrito está vacío. Añade al menos un producto.");
                 return;
             }
 
-            var mensaje = "¡Hola! Quisiera realizar el siguiente pedido en TIENDA VYQ:\n\n";
+            var htmlResumen = "<b>Productos en tu carrito:</b><br><ul>";
+            var total = 0;
+            for (var i = 0; i < carritoCompras.length; i++) {
+                htmlResumen += "<li>" + carritoCompras[i].nombre + " - Bs. " + carritoCompras[i].precio + "</li>";
+                total += carritoCompras[i].precio;
+            }
+            htmlResumen += "</ul><br><b>Total a Pagar: Bs. " + total + "</b>";
+
+            document.getElementById("resumen-carrito").innerHTML = htmlResumen;
+            document.getElementById("modal-pedido").style.display = "flex";
+        }
+
+        function cerrarModal() {
+            document.getElementById("modal-pedido").style.display = "none";
+        }
+
+        function enviarPedidoWhatsApp() {
+            var nombre = document.getElementById("cliente-nombre").value.trim();
+            var edad = document.getElementById("cliente-edad").value.trim();
+            var talla = document.getElementById("cliente-talla").value.trim();
+            var fecha = document.getElementById("cliente-fecha").value.trim();
+
+            if (!nombre || !edad || !talla || !fecha) {
+                alert("⚠️ Por favor, llena todos tus datos (Nombre, Edad, Talla y Para cuándo lo quieres).");
+                return;
+            }
+
+            var mensaje = "¡Hola! TIENDA VYQ, quiero realizar este pedido:\n\n";
             var total = 0;
 
             for (var i = 0; i < carritoCompras.length; i++) {
@@ -296,14 +227,22 @@
                 total += carritoCompras[i].precio;
             }
 
-            mensaje += "\n*Total a pagar: Bs. " + total + "*\n¡Quedo a la espera de la confirmación!";
+            mensaje += "\n*Total a pagar:* Bs. " + total + "\n\n";
+            mensaje += "📋 *Datos del Cliente:*\n";
+            mensaje += "• Nombre: " + nombre + "\n";
+            mensaje += "• Edad: " + edad + "\n";
+            mensaje += "• Talla / Modelo: " + talla + "\n";
+            mensaje += "• Para cuándo lo quiere: " + fecha + "\n";
 
-            // Codificar mensaje para URL de WhatsApp
-            var urlWhatsApp = "https://wa.me/59170000000?text=" + encodeURIComponent(mensaje);
-
-            // Abrir WhatsApp directamente con el pedido armado
+            var urlWhatsApp = "https://wa.me/59163062304?text=" + encodeURIComponent(mensaje);
             window.open(urlWhatsApp, "_blank");
+            cerrarModal();
         }
+
+        // Ejecutar al cargar la página
+        window.onload = function() {
+            renderizarTienda();
+        };
     </script>
 </body>
 </html>
